@@ -1,0 +1,322 @@
+body {
+	background: #1C3C51;
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+}
+
+#root {
+	z-index: 1;
+	position: relative;
+}
+
+#header-container {
+	height: 60px;
+	width: 100%;
+	background: #274A61;
+	box-shadow: inset 0 -1px 0 0 rgba(255,255,255,0.1), 0 2px 10px 0 rgba(0,0,0,0.5);
+	position: fixed;
+	z-index: 100;
+}
+
+#progress {
+	position: absolute;
+	width: 1440px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+#progress #scale {
+	background: white;
+	height: 5px;
+	float: left;
+}
+
+#progress #hatch {
+	height: 10px;
+	width: 2px;
+	background-color: white;
+	position: absolute;
+	z-index: 1005;
+}
+
+#progress #endhatch {
+	height: 10px;
+	width: 2px;
+	background-color: #93A4B0;
+	position: absolute;
+	left: 1440px;
+	z-index: 1000;
+}
+
+#progress #current {
+	font-weight: 500;
+	top: 10px;
+	font-size: 14px;
+	color: white;
+	z-index: 1010;
+	float: left;
+	margin-left: 6px;
+	margin-top: 0px;
+}
+
+#progress #left {
+	position: absolute;
+	right: 3px;
+	font-weight: 500;
+	top: 0;
+	font-size: 14px;
+	color: #93A4B0;
+	z-index: 1010;
+}
+
+#progress #left.timedown {
+	right: -2px;
+	top: 10px;
+}
+
+#header-container #header {
+	margin: 0 auto;
+	width: 1440px;
+}
+
+#header .attacks {
+	font-size: 14px;
+	float: left;
+}
+
+#header .min {
+	margin-left: 4px;
+	color: black;
+	font-size: 14px;
+	float: left;
+	font-weight: 900;
+}
+
+.service-header {
+	width: 160px;
+	float: left;
+	padding-top: 16px;
+}
+
+#attacks-header {
+	width: 480px;
+	float: left;
+	height: 100%;
+	padding-top: 16px;
+	padding-left: 60px;
+	box-sizing: border-box;
+}
+
+.service-name {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 900;
+	line-height: 16px;
+}
+
+#scoreboard {
+	padding-top: 90px;
+	margin: 0 auto;
+	width: 1440px;
+}
+
+.team {
+	height: 100px;
+	float: left;
+}
+
+.team .place {
+	width: 60px;
+	height: 100%;
+	float: left;
+	font-weight: 500;
+	color: white;
+	padding-top: 20px;
+	padding-left: 9px;
+	padding-right: 4px;
+	white-space: normal;
+	box-sizing: border-box;
+}
+
+.team .place .suffix {
+	font-size: 11px;
+	vertical-align: 2px;
+}
+
+.team_border {
+	border-top: 1px solid #3D596A;
+}
+
+.team_logo {
+	width: 64px;
+	height: 100%;
+	float: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.team_logo img {
+	width: 64px;
+}
+
+.team_info {
+	width: 356px;
+	height: 100%;
+	float: left;
+	padding-top: 13px;
+	padding-left: 30px;
+	padding-right: 10px;
+	box-sizing: border-box;
+}
+
+.team_service {
+	width: 160px;
+	height: 100%;
+	float: left;
+	padding-top: 12px;
+	box-sizing: border-box;
+}
+
+.team_name {
+	font-weight: 900;
+	color: black;
+	font-size: 24px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.ip {
+	color: white;
+	opacity: 0.2;
+	font-size: 11px;
+	margin-top: -2px;
+}
+
+.score {
+	font-size: 19px;
+	line-height: 19px;
+	color: white;
+	margin-top: 3px;
+}
+
+.team_score_line {
+	margin-top: 3px;
+	width: 100px;
+	height: 3px;
+	min-height: 3px;
+}
+
+.team_score_line div {
+	height: 3px;
+	min-height: 3px;
+}
+
+.team_service .fp {
+	font-size: 16px;
+	color: white;
+}
+
+.team_service .flags {
+	opacity: 0.5;
+	font-size: 12px;
+	margin-top: 12px;
+}
+
+.team_service .flags .flags-icon {
+	color: white;
+	fill: white;
+}
+
+.team_service .sla {
+	margin-top: 7px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.slaline {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.slapercent {
+	font-size: 14px;
+	float: left;
+	width: 40px;
+	overflow: hidden;
+}
+
+.service_fp_line {
+	margin-top: 1px;
+	width: 100px;
+	height: 3px;
+	min-height: 3px;
+}
+
+.service_fp_line div {
+	height: 3px;
+	min-height: 3px;
+}
+
+#scoreboard .red {
+	color: #FF5656;
+}
+
+#scoreboard .green {
+	color: #84E668;
+}
+
+#scoreboard .background-red {
+	 background: #FF5656;
+ }
+
+#scoreboard .background-green {
+	background: #84E668;
+}
+
+#scoreboard .rect-red.colored {
+	fill: #FF5656;
+}
+
+#scoreboard .rect-green.colored {
+	fill: #84E668;
+}
+
+#scoreboard .rect-red {
+	fill: #1C3C51;
+}
+
+#scoreboard .rect-green {
+	fill: #496373;
+}
+
+.flags_line {
+	margin-top: 1px;
+	width: 100px;
+	height: 2px;
+	min-height: 2px;
+}
+
+.flags_line div {
+	height: 2px;
+	min-height: 2px;
+	float: left;
+}
+
+.slnlineblock {
+	float: left;
+	line-height: 10px;
+	margin-left: 2.5px;
+	margin-top: 3px;
+}
+
+.hidden {
+	display: none;
+}
+
+.status div {
+	font-size: 9px;
+	margin-top: -4px;
+}
