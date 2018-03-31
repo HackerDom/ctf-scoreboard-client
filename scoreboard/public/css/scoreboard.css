@@ -21,7 +21,6 @@ body {
 
 #progress {
 	position: absolute;
-	width: 1440px;
 	left: 0;
 	right: 0;
 	margin: auto;
@@ -46,7 +45,6 @@ body {
 	width: 2px;
 	background-color: #93A4B0;
 	position: absolute;
-	left: 1440px;
 	z-index: 1000;
 }
 
@@ -78,7 +76,6 @@ body {
 
 #header-container #header {
 	margin: 0 auto;
-	width: 1440px;
 }
 
 #header .attacks {
@@ -118,18 +115,60 @@ body {
 
 #scoreboard {
 	padding-top: 90px;
-	margin: 0 auto;
-	width: 1440px;
+	padding-bottom: 30px;
 }
 
 .team {
 	height: 100px;
-	float: left;
+	overflow: hidden;
+	transition: height 0.2s ease-in;
+}
+
+.team_selected {
+	background-color: #274A61;
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.2), inset 0 -1px 0 0 rgba(255,255,255,0.2);
+	height: 565px;
+}
+
+.team_selected .team_service .fp {
+	font-size: 20px;
+}
+
+.team:hover {
+	background-color: #274A61;
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.2), inset 0 -1px 0 0 rgba(255,255,255,0.2);
+}
+
+.team_selected + .team:hover {
+	box-shadow: inset 0 -1px 0 0 rgba(255,255,255,0.2);
+}
+
+.team:hover + .team_selected {
+	box-shadow: inset 0 -1px 0 0 rgba(255,255,255,0.2);
+ }
+
+.team_centered {
+	margin: 0 auto;
+}
+
+.team_summary {
+	height: 100px;
+	clear: both;
+}
+
+.team_plots {
+	position: relative;
+	margin-top: 60px;
+	padding-bottom: 25px;
+	padding-top: 25px;
+}
+
+.fbarchart {
+	margin-top: 45px;
 }
 
 .team .place {
 	width: 60px;
-	height: 100%;
 	float: left;
 	font-weight: 500;
 	color: white;
@@ -146,7 +185,17 @@ body {
 }
 
 .team_border {
-	border-top: 1px solid #3D596A;
+	border-top: solid 1px rgba(255,255,255,0.15);
+}
+
+.team:hover .team_border, .team:hover + .team .team_border {
+	margin-top:1px;
+	border-top: none;
+}
+
+.team_selected .team_border, .team_selected + .team .team_border {
+	margin-top:1px;
+	border-top: none;
 }
 
 .team_logo {
@@ -187,6 +236,11 @@ body {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	transition: color 0.2s ease;
+}
+
+.team_selected .team_name {
+	color: white;
 }
 
 .ip {
@@ -201,6 +255,11 @@ body {
 	line-height: 19px;
 	color: white;
 	margin-top: 3px;
+	transition: opacity 0.2s ease;
+}
+
+.team_selected .team_info .score {
+	opacity: 0;
 }
 
 .team_score_line {
@@ -208,6 +267,11 @@ body {
 	width: 100px;
 	height: 3px;
 	min-height: 3px;
+	transition: opacity 0.2s ease;
+}
+
+.team_selected .team_info .team_score_line {
+	opacity: 0;
 }
 
 .team_score_line div {
@@ -218,12 +282,22 @@ body {
 .team_service .fp {
 	font-size: 16px;
 	color: white;
+	transition: font-size 0.2s ease;
 }
 
 .team_service .flags {
 	opacity: 0.5;
 	font-size: 12px;
+	transition: font-size 0.2s ease, opacity 0.2s ease, margin-top 0.2s;
 	margin-top: 12px;
+}
+
+.team_service .flags .sflags {
+	transition: color 0.2s;
+}
+
+.team_selected .flags .sflags {
+	color: #FF5656;
 }
 
 .team_service .flags .flags-icon {
@@ -231,21 +305,47 @@ body {
 	fill: white;
 }
 
+.team_selected .team_service .flags {
+	margin-top: 20px;
+	font-size: 14px;
+	opacity: 1;
+}
+
 .team_service .sla {
 	margin-top: 7px;
-	overflow: hidden;
 	box-sizing: border-box;
+	position: relative;
+	transition: margin-top 0.2s;
+}
+
+.team_selected .team_service .sla {
+	margin-top: 16px;
 }
 
 .slaline {
+	position: absolute;
+	left: 45px;
+	top: 3px;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	transition: left 0.2s, zoom 0.2s, border-color 0.2s;
+}
+
+.team_selected .slaline {
+	left: 0;
+	zoom: 1.75;
+	border-bottom: 1px solid black;
 }
 
 .slapercent {
+	position: absolute;
 	font-size: 14px;
-	float: left;
 	width: 40px;
-	overflow: hidden;
+	top: 0;
+	transition: top 0.2s;
+}
+
+.team_selected .slapercent {
+	top: 30px;
 }
 
 .service_fp_line {
@@ -253,11 +353,23 @@ body {
 	width: 100px;
 	height: 3px;
 	min-height: 3px;
+	transition: height 0.2s ease, min-height 0.2s ease;
+}
+
+.team_selected .service_fp_line div {
+	height: 4px;
+	min-height: 4px;
 }
 
 .service_fp_line div {
 	height: 3px;
 	min-height: 3px;
+	transition: height 0.2s ease, min-height 0.2s ease;
+}
+
+.team_selected .service_fp_line div {
+	height: 4px;
+	min-height: 4px;
 }
 
 #scoreboard .red {
@@ -297,6 +409,7 @@ body {
 	width: 100px;
 	height: 2px;
 	min-height: 2px;
+	transition: height 0.2s ease;
 }
 
 .flags_line div {
@@ -305,18 +418,122 @@ body {
 	float: left;
 }
 
-.slnlineblock {
-	float: left;
+.team_selected .flags_line {
+	height: 3px;
+	min-height: 3px;
+}
+
+.team_selected .flags_line div {
+	height: 3px;
+	min-height: 3px;
+}
+
+.slalineblock {
 	line-height: 10px;
-	margin-left: 2.5px;
-	margin-top: 3px;
 }
 
 .hidden {
 	display: none;
 }
 
-.status div {
+.status {
+	position: absolute;
+	top: 13px;
 	font-size: 9px;
-	margin-top: -4px;
+	transition: top 0.2s, font-size 0.2s;
+}
+
+.team_selected .status {
+	top: 46px;
+	font-size: 11px;
+}
+
+.maxSla {
+	position: absolute;
+	top: 13px;
+	left: 55px;
+	opacity: 0;
+	color: black;
+	font-size: 14px;
+	transition: top 0.2s, opacity 0.2s;
+}
+
+.team_selected .maxSla {
+	top: 30px;
+	opacity: 1;
+}
+
+.plotborder {
+	fill: rgb(255,255,255);
+	fill-opacity: 0.15;
+}
+
+.plottext {
+	text-anchor: start;
+	fill-opacity: 0.5;
+	fill: rgb(255,255,255);
+	font-family: 'Roboto', sans-serif;
+	font-size: 12px;
+}
+
+.plotsprogress {
+	position: absolute;
+	top: 0;
+}
+
+.plotsprogress .counter {
+	position: absolute;
+	font-size: 12px;
+	margin-left: -15px;
+	width: 30px;
+	text-align: center;
+	margin-top: 3px;
+}
+
+.plotsprogress .hatch {
+	height: 360px;
+	width: 2px;
+	background-color: white;
+	margin-top: 20px;
+}
+
+.team_plots .counts {
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-size: 22px;
+}
+
+.team_plots .counts_title {
+	color: black;
+	font-weight: 900;
+	font-size: 20px;
+}
+
+.team_plots .flags_line div {
+	height: 3px;
+	min-height: 3px;
+}
+
+.team_plots .sla_block {
+	position: absolute;
+	top: -55px;
+}
+
+.team_plots .score_block {
+	position: absolute;
+	top: 95px;
+}
+
+.team_plots .flags_block {
+	position: absolute;
+	top: 262px;
+}
+
+.team_plots .flags_block .flags {
+	width: 200px;
+}
+
+.team_plots .flags .sflags {
+	color: #FF5656;
 }

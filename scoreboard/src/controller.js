@@ -11,7 +11,7 @@ export default class Controller extends EventEmitter {
 			this.emit('flagStat');
 		});
 
-		fetch("http://" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) + "/api/info", {mode: 'cors'})
+		fetch("http://" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) : "127.0.0.1:8000") + "/api/info", {mode: 'cors'})
 			.then(response => {
 				if (response.ok)
 					return response.json();
@@ -50,6 +50,11 @@ export default class Controller extends EventEmitter {
 		};
 		ws.onmessage = (e) => {
 			let event = JSON.parse(e.data);
+			if(event.type === "reload") {
+				setTimeout(function() {
+					window.location.reload(true);
+				}, event.value)
+			}
 			if(first && event.type === "state") {
 				this.emitSync('start', this.model);
 				this.processState(event.value);

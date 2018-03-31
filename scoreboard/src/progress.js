@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
-const countdown_start = new Date(2017, 11, 2, 11, 0, 0, 0); // monthis from 0, utc start time
-const diff = 8 * 60 * 60 * 1000;
-const countdown_end = new Date(countdown_start.getTime() + diff);
-
 class Progress extends Component {
 	constructor(props) {
 		super(props);
+		this.countdown_start = props.start * 1000;
+		this.countdown_end = props.end * 1000;
+		this.diffMs = this.countdown_end - this.countdown_start;
 		this.start = Date.now();
 		this.state = {elapsed: 0};
 	}
@@ -20,17 +19,15 @@ class Progress extends Component {
 		clearInterval(this.timer);
 	}
 
-	static countdown() {
-		let now = new Date().getTime();
-		const utcOffsetMilliseconds = new Date().getTimezoneOffset() * 60000;
-		now += utcOffsetMilliseconds;
-		if (now > countdown_start.getTime()) {
-			if(now > countdown_end.getTime()) {
+	countdown() {
+		let now = Date.now();
+		if (now > this.countdown_start) {
+			if(now > this.countdown_end) {
 				return 0;
 			}
-			return countdown_end.getTime() - now;
+			return this.countdown_end - now;
 		}
-		return diff;
+		return this.diffMs;
 	}
 
 	static milisecondsToTimeStr(msec) {
@@ -48,18 +45,18 @@ class Progress extends Component {
 	}
 
 	render() {
-		const remainingMs = Progress.countdown();
-		if(remainingMs === diff) {
+		const remainingMs = this.countdown();
+		if(remainingMs === this.diffMs) {
 			return null;
 		}
-		const percent = Math.round((diff - remainingMs) / diff * 100);
+		const percent = Math.round((this.diffMs - remainingMs) / this.diffMs * 100);
 		const left = "-" + Progress.milisecondsToTimeStr(remainingMs);
-		const current = Progress.milisecondsToTimeStr(diff - remainingMs).substr(0, 4);
+		const current = Progress.milisecondsToTimeStr(this.diffMs - remainingMs).substr(0, 4);
 		return (
-			<div id="progress">
+			<div id="progress" style={{width: this.props.width + "px"}}>
 				<div id="scale" style={{width: percent + "%"}}></div>
 				<div id="hatch" style={{left: percent + "%"}}></div>
-				<div id="endhatch"></div>
+				<div id="endhatch" style={{left: this.props.width + "px"}}></div>
 				{remainingMs > 35*60*1000 ? <div id="current">{current}</div> : null}
 				<div id="left" className={remainingMs > 35*60*1000 ? "" : "timedown"}>{left}</div>
 			</div>

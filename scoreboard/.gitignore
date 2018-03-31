@@ -12,6 +12,7 @@ package-lock.json
 
 #idea
 /.idea
+/test-server/.idea
 
 # misc
 .DS_Store

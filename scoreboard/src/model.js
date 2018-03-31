@@ -2,13 +2,13 @@ import _ from "underscore";
 
 export class GameModel {
 	constructor(info) {
-		this.servicesCount = 6;
 		this.scoreboard = undefined;
 		this.allScoreboards = [];
 		this.previousScoreboard = undefined;
 		this.max_score = 0;
 		this.max_service_score = 0;
 		this.max_flags_sum = 0;
+		this.max_flags_allservices_sum = 0;
 		this.colors = ["#86D9E0", "#EB8BD7", "#E9CC76", "#7AA6F3", "#F7AB7C", "#AE86F2"];
 		this.initServices(info);
 		this.serviceIndex2attacksInRound = this.services.map((s) => 0);
@@ -16,6 +16,11 @@ export class GameModel {
 		this.info = info;
 		this.preloadLogos();
 		this.initAllRoundsSla(info);
+		this.one_servive_width = 160;
+		this.team_width = 480;
+		this.roundsPerGraphColumn = 15;
+		this.roundsPerGraphBorder = 60;
+		this.selectedTeam = null;
 	}
 
 	preloadLogos() {
@@ -47,6 +52,7 @@ export class GameModel {
 
 	initServices(info) {
 		this.services = [];
+		this.servicesCount = 0;
 		for (const fieldName in info.services) {
 			if (info.services.hasOwnProperty(fieldName)) {
 				const name = info.services[fieldName];
@@ -54,13 +60,22 @@ export class GameModel {
 					id: fieldName,
 					name: name,
 				});
+				this.servicesCount++;
 			}
 		}
 		this.services.sort(function(a, b) {return a.id > b.id;})
 	}
 
+	getHost(team) {
+		return this.teams[team.team_id].host;
+	}
+
 	getLogo(team) {
 		return this.teams[team.team_id].logo;
+	}
+
+	getRound() {
+		return this.allScoreboards.length === 0 ? 0 : this.allScoreboards[this.allScoreboards.length - 1].round;
 	}
 
 	getSlaPeriods(team_id, service_id) {
@@ -99,7 +114,9 @@ export class GameModel {
 
 	setScoreboard(scoreboard) {
 		this.scoreboard = scoreboard;
-		this.max_score = parseFloat(this.scoreboard.scoreboard[0].score);
+		this.max_score = Math.max.apply(null,
+			this.scoreboard.scoreboard.map(
+				function(t) { return parseFloat(t.score); }));
 		this.max_service_score = Math.max.apply(null,
 			this.scoreboard.scoreboard.map(
 				function(t) {
@@ -109,6 +126,11 @@ export class GameModel {
 			this.scoreboard.scoreboard.map(
 				function(t) {
 					return Math.max.apply(null, t.services.map(function(s) {return parseFloat(s.flags + s.sflags)}));
+				}));
+		this.max_flags_allservices_sum = Math.max.apply(null,
+			this.scoreboard.scoreboard.map(
+				function(t) {
+					return t.services.map(function(s) {return parseFloat(s.flags + s.sflags)}).reduce((p, c) => p + c);
 				}));
 		this.setScoreboards([scoreboard]);
 	}
@@ -120,7 +142,7 @@ export class GameModel {
 	setScoreboards(scoreboards) {
 		this.allScoreboards = this.allScoreboards.concat(scoreboards);
 		this.allScoreboards = _.uniq(this.allScoreboards, function(item) {return item.round;});
-		this.allScoreboards.sort(function(a, b) {return a.round > b.round;});
+		this.allScoreboards.sort(function(a, b) {return a.round - b.round;});
 		if(this.allScoreboards.length > 2 && this.scoreboard !== undefined) {
 			this.previousScoreboard = this.allScoreboards[this.allScoreboards.length - 2];
 			const previousFlags = this.getAttacksCountInLastRoundForService(this.previousScoreboard.scoreboard);
@@ -141,5 +163,40 @@ export class GameModel {
 			}
 		}
 		return result;
+	}
+
+	getDataForGraphs(team_id) {
+		if(this.allScoreboards.length < this.allScoreboards[this.allScoreboards.length - 1].round) {
+			return [];
+		}
+		let prevRound = null;
+		let result = [];
+		for(let round = 0; round < this.allScoreboards.length; round += this.roundsPerGraphColumn) {
+			result.push(GameModel.getDataForGraphsOneScoreboard(prevRound === null ? null : this.allScoreboards[prevRound], this.allScoreboards[round], team_id));
+			prevRound = round;
+		}
+		if((this.allScoreboards.length - 1) % this.roundsPerGraphColumn !== 0) {
+			result.push(GameModel.getDataForGraphsOneScoreboard(prevRound === null ? null : this.allScoreboards[prevRound], this.allScoreboards[this.allScoreboards.length - 1], team_id));
+		}
+		return result;
+	}
+
+	static getDataForGraphsOneScoreboard(prevScoreboard, scoreboard, team_id) {
+		for(let t=0; t<scoreboard.scoreboard.length; t++)
+		{
+			const team = scoreboard.scoreboard[t];
+			const t_id = team.id === undefined ? team.team_id : team.id;
+			if(t_id !== team_id)
+				continue;
+			let services_flags = [];
+			for(let s=0; s < team.services.length; s++) {
+				const service = team.services[s];
+				const prevService = prevScoreboard === null ? null : prevScoreboard.scoreboard[t].services[s];
+				const flags = service["flags"] - (prevService == null ? 0 : prevService["flags"]);
+				const sflags = service["sflags"] - (prevService == null ? 0 : prevService["sflags"]);
+				services_flags.push({"round": scoreboard.round, "flags": flags, "sflags": sflags, "fp" : service["fp"]});
+			}
+			return services_flags;
+		}
 	}
 }

@@ -1,0 +1,60 @@
+/api/info =>
+    {
+        "teams": {"team_id" (string): {"logo" (string): value (string, absolute path), "host": ip, "id": int, "name": string, "network": "ip and mask" }, ...}
+        "services": {"service_id" (string from "1"): "service_name", ...}
+        "roundsCount": int,
+        "start": "time(millisec)",
+        "end": "time(millisec)" // UTC
+    }
+
+/history/scoreboard.json => {
+	"round": число от 0,
+	"scoreboard": [
+		"id": team num from 1
+		"score": float
+		"services": [{ // in the order of services
+			"flags":int > 0,
+			"sflags":int > 0,
+			"fp":float > 0,
+			"status":110
+		}, ...] 
+	]
+}
+
+/scoreboard.json =>
+    {
+        "round": "round#"
+        "scoreboard": [
+            {
+                "name": "team_name",
+                "score": string with float
+				"n": int, place, the teams are sorted by it
+				"d": +-int, (is written in parentheses near the place)
+                "services": [
+                    {
+                        "flags": int,
+						"fp": float,
+                        "id": "service_id" - int from 1,
+						"sflags": int (stolen flags),
+						"sla": float,
+						"status": 101|..., (101:OK, 102:CORRUPT, 103:MUMBLE, 104:DOWN, else:CHECKER_ERROR)
+						"stdout": string,
+                    },
+                    ...
+                ]
+            },
+            ...
+        ]
+    }
+
+"ws://.../api/events => 
+    {
+        "type": "attack" | "state" | "reload",
+        "value" : class attack | state
+    }
+
+class state { // Sent at the end of the round, contains information for the last round, as well as it is sent when the websocket connection is opened
+    // The same as in /scoreboard.json
+}
+
+reload - reload page completely
