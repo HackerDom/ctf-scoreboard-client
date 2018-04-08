@@ -53,7 +53,7 @@ class Scoreboard extends Component {
 			if(_this.teamRefs !== undefined) {
 				if(_this.teamRefs[_this.nextTeamToOpen] !== null) {
 					_this.teamRefs[_this.nextTeamToOpen].handleClick();
-					window.scroll({top: collapsedTeamWidth * _this.nextTeamToOpen, left: 0, behavior: 'smooth'});
+					window.scroll({top: collapsedTeamWidth * this.zoom * _this.nextTeamToOpen, left: 0, behavior: 'smooth'});
 				}
 				_this.nextTeamToOpen++;
 				if(_this.nextTeamToOpen >= _this.model.getScoreboard().length)
@@ -68,7 +68,7 @@ class Scoreboard extends Component {
 		function resize() {
 			const container = document.getElementById('container');
 			if(container != null) {
-				if (window.outerWidth < width) {
+				if (window.outerWidth - _this.compactScoreboardWidth < width) {
 					_this.zoom = (window.outerWidth - 40 - _this.compactScoreboardWidth) / width;
 					container.setAttribute("style", "zoom:" + _this.zoom + ";");
 				} else {
@@ -105,12 +105,13 @@ class Scoreboard extends Component {
 		if(this.model === undefined)
 			return null;
 		const attacks = this.model.serviceIndex2attacksInRound.reduce(function(a, b) {return a + b;});
+		const container = document.getElementById('container');
 		return (
 			<div>
 			{this.compactScoreboardWidth === 0 ? null : <CompactScoreboard model={this.model} width={this.compactScoreboardWidth}/>}
 			<div id="container-wrapper" style={{marginLeft: this.compactScoreboardWidth + "px"}}>
 			<div id="container">
-				<div id="header-container" style={{width: this.compactScoreboardWidth === 0 ? "100%" : window.outerWidth - this.compactScoreboardWidth}}>
+				<div id="header-container" style={{width: this.compactScoreboardWidth === 0 ? "100%" : container == null ? this.width : container.offsetWidth}}>
 					<Progress width={this.width} start={this.model.info.start} end={this.model.info.end}/>
 					<div id="header" style={{width: this.width + "px"}}>
 						<div id="attacks-header">
