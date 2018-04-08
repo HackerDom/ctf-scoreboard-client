@@ -6,6 +6,7 @@ import CompactScoreboard from './compactscoreboard';
 import {getParameterByName} from "./utils"
 
 const controller = new Controller();
+const collapsedTeamWidth = 100;
 
 class Scoreboard extends Component {
 	constructor(props) {
@@ -13,6 +14,9 @@ class Scoreboard extends Component {
 		this.onTeamClick = this.onTeamClick.bind(this);
 		this.compactScoreboardWidth = parseInt(getParameterByName("compactScoreboardWidth"));
 		this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
+		this.autoOpenPeriod = parseInt(getParameterByName("autoOpen")); // seconds
+		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
+		this.nextTeamToOpen = 0;
 	}
 
 	componentDidMount () {
@@ -23,6 +27,11 @@ class Scoreboard extends Component {
 			this.zoom = 1;
 		});
 		controller.on('updateScoreboard', () => {
+			if (!initialized) {
+				this.teamRefs = [];
+				for (let i = 0; i < this.model.getScoreboard().length; i++)
+					this.teamRefs.push(null);
+			}
 			this.forceUpdate();
 			const _this = this;
 			_this.initResize();
@@ -33,6 +42,24 @@ class Scoreboard extends Component {
 				this.forceUpdate();
 			}
 		});
+		if(this.autoOpenPeriod !== 0) {
+			this.autoOpenScript();
+		}
+	}
+
+	autoOpenScript() {
+		const _this = this;
+		setInterval(() => {
+			if(_this.teamRefs !== undefined) {
+				if(_this.teamRefs[_this.nextTeamToOpen] !== null) {
+					_this.teamRefs[_this.nextTeamToOpen].handleClick();
+					window.scroll({top: collapsedTeamWidth * _this.nextTeamToOpen, left: 0, behavior: 'smooth'});
+				}
+				_this.nextTeamToOpen++;
+				if(_this.nextTeamToOpen >= _this.model.getScoreboard().length)
+					_this.nextTeamToOpen = 0;
+			}
+		}, this.autoOpenPeriod);
 	}
 
 	initResize() {
@@ -68,8 +95,8 @@ class Scoreboard extends Component {
 	}
 
 	getTeamRows() {
-		return this.model.getScoreboard().map((t) =>
-			<Team key={t.team_id} team={t} model={this.model} handleClick={this.onTeamClick}
+		return this.model.getScoreboard().map((t, i) =>
+			<Team ref={instance => { this.teamRefs[i] = instance; }} key={t.team_id} team={t} model={this.model} handleClick={this.onTeamClick}
 				  isSelected={this.model.selectedTeam !== null && this.model.selectedTeam.id === t.team_id}/>
 		);
 	}
