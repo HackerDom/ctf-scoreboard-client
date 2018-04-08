@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Controller from "./controller";
 import Team from './team';
 import Progress from './progress';
+import CompactScoreboard from './compactscoreboard';
+import {getParameterByName} from "./utils"
 
 const controller = new Controller();
 
@@ -9,17 +11,21 @@ class Scoreboard extends Component {
 	constructor(props) {
 		super(props);
 		this.onTeamClick = this.onTeamClick.bind(this);
+		this.compactScoreboardWidth = parseInt(getParameterByName("compactScoreboardWidth"));
+		this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
 	}
 
-	componentWillMount () {
+	componentDidMount () {
 		let initialized = false;
 		controller.on('start', m => {
 			this.model = m;
-			this.width = this.model.team_width +  this.model.one_servive_width * this.model.servicesCount;
-			this.initResize();
+			this.width = this.model.team_width + this.model.one_servive_width * this.model.servicesCount;
+			this.zoom = 1;
 		});
 		controller.on('updateScoreboard', () => {
 			this.forceUpdate();
+			const _this = this;
+			_this.initResize();
 			initialized = true;
 		});
 		controller.on('history', () => {
@@ -31,12 +37,17 @@ class Scoreboard extends Component {
 
 	initResize() {
 		const width = this.width;
+		const _this = this;
 		function resize() {
-			const body = document.getElementsByTagName("body")[0];
-			if (window.outerWidth < width) {
-				body.setAttribute("style", "zoom:" + ((window.outerWidth - 40) / width) + ";");
-			} else {
-				body.setAttribute("style", "");
+			const container = document.getElementById('container');
+			if(container != null) {
+				if (window.outerWidth < width) {
+					_this.zoom = (window.outerWidth - 40 - _this.compactScoreboardWidth) / width;
+					container.setAttribute("style", "zoom:" + _this.zoom + ";");
+				} else {
+					_this.zoom = 1;
+					container.setAttribute("style", "");
+				}
 			}
 		}
 		window.onresize = function(event) {
@@ -68,8 +79,11 @@ class Scoreboard extends Component {
 			return null;
 		const attacks = this.model.serviceIndex2attacksInRound.reduce(function(a, b) {return a + b;});
 		return (
+			<div>
+			{this.compactScoreboardWidth === 0 ? null : <CompactScoreboard model={this.model} width={this.compactScoreboardWidth}/>}
+			<div id="container-wrapper" style={{marginLeft: this.compactScoreboardWidth + "px"}}>
 			<div id="container">
-				<div id="header-container">
+				<div id="header-container" style={{width: this.compactScoreboardWidth === 0 ? "100%" : window.outerWidth - this.compactScoreboardWidth}}>
 					<Progress width={this.width} start={this.model.info.start} end={this.model.info.end}/>
 					<div id="header" style={{width: this.width + "px"}}>
 						<div id="attacks-header">
@@ -89,6 +103,8 @@ class Scoreboard extends Component {
 				<div id="scoreboard">
 					{this.getTeamRows()}
 				</div>
+			</div>
+			</div>
 			</div>
 		);
 	}

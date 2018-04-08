@@ -12,7 +12,6 @@ body {
 
 #header-container {
 	height: 60px;
-	width: 100%;
 	background: #274A61;
 	box-shadow: inset 0 -1px 0 0 rgba(255,255,255,0.1), 0 2px 10px 0 rgba(0,0,0,0.5);
 	position: fixed;
@@ -536,4 +535,69 @@ body {
 
 .team_plots .flags .sflags {
 	color: #FF5656;
+}
+
+#compact-container {
+	position: absolute;
+	left: 30px;
+	top: 50%;
+	z-index: 1000;
+	transform: translate(0,-50%);
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+#compact-container table {
+	border-spacing: 0;
+}
+#compact-container img {
+	width: auto;
+	margin-right: 9px;
+	margin-top: 3px;
+}
+#compact-container tr:nth-child(1) .place {
+	background-color: #FFBF1B;
+	color: #220347;
+}
+#compact-container tr:nth-child(1) td:nth-last-child(-n+2) {
+	font-weight: 700;
+}
+#compact-container tr:nth-child(2) .place {
+	background-color: #E4E4E4;
+	color: #220347;
+}
+#compact-container tr:nth-child(2) td:nth-last-child(-n+2) {
+	font-weight: 700;
+}
+#compact-container tr:nth-child(3) .place {
+	background-color: #EC8F47;
+	color: #220347;
+}
+#compact-container tr:nth-child(3) td:nth-last-child(-n+2) {
+	font-weight: 700;
+}
+#compact-container td:nth-child(3) div {
+	margin-left: 1px;
+	margin-right: 20px;
+}
+#compact-container td:nth-child(4) div {
+	margin-right: 1px;
+	text-align: right;
+}
+#compact-container tr:not(*:last-child) td:nth-last-child(-n+2) {
+	border-bottom: 1px solid #3E596B;
+}
+#compact-container .place {
+	color: rgba(255,255,255,0.6);
+	border-radius: 100px;
+	text-align: center;
+	margin-right: 13px;
+}
+#compact-container-wrapper {
+	position: fixed;
+	z-index: 1000;
+	background-color: #1C3C51;
+}
+#container {
+	position: relative;
 }
