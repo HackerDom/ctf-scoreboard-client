@@ -10,14 +10,14 @@ import asyncio
 import websockets
 import threading
 
-
-ROUND_TIME = 60
+ROUNDS_PER_MINUTE = 2
+ROUND_TIME = 60/ROUNDS_PER_MINUTE
 GAME_LENGTH = 8
-ROUNDS_COUNT = 8*60
+ROUNDS_COUNT = 8*60*ROUNDS_PER_MINUTE
 service_names = ["atlablog", "weather", "cartographer", "sapmarine", "crash", "thebin", "theseven"]
 
 def team_(x): return str(x)
-def team_name(x): return '{}MSHP SSL: Kekulechko Net Diggers'.format(x)
+def team_name(x): return '{}Переподвысмотрит'.format(x)
 def service_(x): return str(x)
 
 def utctime(): # число секунд
@@ -192,7 +192,7 @@ def parse_args():
     parser.add_argument('-s', '--services', type=int, help='services count',
                         default=7)
     parser.add_argument('-m', '--start_minute', type=int, help='passed time in minutes',
-                        default=0)
+                        default=3*60)
     return parser.parse_args()
 
 

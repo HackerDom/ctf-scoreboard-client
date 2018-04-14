@@ -2,7 +2,7 @@
     {
         "teams": {"team_id" (string): {"logo" (string): value (string, absolute path), "host": ip, "id": int, "name": string, "network": "ip and mask" }, ...}
         "services": {"service_id" (string from "1"): "service_name", ...}
-        "roundsCount": int,
+        "roundsCount": int, // optional
         "start": "time(millisec)",
         "end": "time(millisec)" // UTC
     }

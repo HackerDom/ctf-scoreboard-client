@@ -10,7 +10,7 @@ class fpplot extends Component {
 		const graphData = this.props.graphData;
 		const width = this.props.width;
 		const plotHeight = svgheight - 2;
-		const roundsCount = model.info.roundsCount;
+		const roundsCount = model.roundsCount;
 		let maxSum = Math.max.apply(this, graphData.map((s) => s.map(x => {return x.fp;}).reduce((x, y) => x + y)));
 		maxSum = Math.max(minSumBorder, maxSum);
 		const points = Array.from(Array(model.servicesCount).keys()).map(i => []);

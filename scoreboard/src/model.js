@@ -18,8 +18,15 @@ export class GameModel {
 		this.initAllRoundsSla(info);
 		this.one_servive_width = 160;
 		this.team_width = 480;
+		this.roundsCount = info.roundsCount;
+		if(this.roundsCount === undefined)
+			this.roundsCount = 480;
 		this.roundsPerGraphColumn = 15;
 		this.roundsPerGraphBorder = 60;
+		if(this.roundsCount > 600) {
+			this.roundsPerGraphColumn *= 2;
+			this.roundsPerGraphBorder *= 2;
+		}
 		this.selectedTeam = null;
 	}
 

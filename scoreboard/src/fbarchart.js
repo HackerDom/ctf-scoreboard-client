@@ -12,7 +12,7 @@ class Fbarchart extends Component {
 		const graphData = this.props.graphData;
 		const width = this.props.width;
 		const plotHeight = svgheight - lineBetweenBarsHeight;
-		const roundsCount = model.info.roundsCount;
+		const roundsCount = model.roundsCount;
 		const roundsPerGraphColumn = model.roundsPerGraphColumn;
 		const maxSumFlags = Math.max(minSumBorder, Math.max.apply(this, graphData.map((s) => s.map(x => {return x.flags;}).reduce((x, y) => x + y))));
 		const maxSumSFlags = Math.max(minSumBorder, Math.max.apply(this, graphData.map((s) => s.map(x => {return x.sflags;}).reduce((x, y) => x + y))));

@@ -16,7 +16,7 @@ class Serviceblock extends Component {
 		const max_service_score = this.props.model.max_service_score;
 		const max_flags_sum = this.props.model.max_flags_sum;
 		const sla_periods = this.props.model.getSlaPeriods(team.team_id, service.id);
-		const roundsCount = this.props.model.info.roundsCount;
+		const roundsCount = this.props.model.roundsCount;
 		const maxSla = Math.ceil((service.sla*round + 100*(roundsCount - round))/roundsCount);
 		return (
 			<div key={service.id} title={service.stdout} className="team_border team_service">
