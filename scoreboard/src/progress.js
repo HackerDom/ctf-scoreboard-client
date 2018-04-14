@@ -8,6 +8,7 @@ class Progress extends Component {
 		this.diffMs = this.countdown_end - this.countdown_start;
 		this.start = Date.now();
 		this.state = {elapsed: 0};
+		this.compactScoreboardWidth = props.compactScoreboardWidth;
 	}
 
 	componentDidMount(){
@@ -53,12 +54,15 @@ class Progress extends Component {
 		const left = "-" + Progress.milisecondsToTimeStr(remainingMs);
 		const current = Progress.milisecondsToTimeStr(this.diffMs - remainingMs).substr(0, 4);
 		return (
-			<div id="progress" style={{width: this.props.width + "px"}}>
-				<div id="scale" style={{width: percent + "%"}}></div>
-				<div id="hatch" style={{left: percent + "%"}}></div>
-				<div id="endhatch" style={{left: this.props.width + "px"}}></div>
-				{remainingMs > 35*60*1000 ? <div id="current">{current}</div> : null}
-				<div id="left" className={remainingMs > 35*60*1000 ? "" : "timedown"}>{left}</div>
+			<div>
+				<div id="progress" style={{width: this.props.width + "px"}}>
+					<div id="scale" style={{width: percent + "%"}}></div>
+					<div id="hatch" style={{left: percent + "%"}}></div>
+					<div id="endhatch" style={{left: this.props.width + "px"}}></div>
+					{remainingMs > 35*60*1000 ? <div id="current">{current}</div> : null}
+					<div id="left" className={remainingMs > 35*60*1000 ? "" : "timedown"}>{left}</div>
+				</div>
+				{this.compactScoreboardWidth === 0 ? null : <div id="bigleft">{left}</div>}
 			</div>
 		);
 	}

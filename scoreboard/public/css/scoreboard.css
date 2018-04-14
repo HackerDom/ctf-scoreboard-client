@@ -5,6 +5,10 @@ body {
 	color: white;
 }
 
+body::-webkit-scrollbar {
+	display: none;
+}
+
 #root {
 	z-index: 1;
 	position: relative;
@@ -540,7 +544,7 @@ body {
 #compact-container {
 	position: absolute;
 	left: 30px;
-	top: 50%;
+	top: 48%;
 	z-index: 1000;
 	transform: translate(0,-50%);
 	color: #fff;
@@ -595,7 +599,6 @@ body {
 }
 #compact-container-wrapper {
 	position: fixed;
-	z-index: 1000;
 	background-color: #1C3C51;
 }
 .compactTeamName {
@@ -605,4 +608,10 @@ body {
 }
 #container {
 	position: relative;
+}
+#bigleft {
+	position: fixed;
+	left: 40px;
+	bottom: 20px;
+	font-size: 36px;
 }
