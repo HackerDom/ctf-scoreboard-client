@@ -12,9 +12,9 @@ class Scoreboard extends Component {
 	constructor(props) {
 		super(props);
 		this.onTeamClick = this.onTeamClick.bind(this);
-		this.compactScoreboardWidth = parseInt(getParameterByName("compactScoreboardWidth"));
+		this.compactScoreboardWidth = parseInt(getParameterByName("compactScoreboardWidth"), 10);
 		this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
-		this.autoOpenPeriod = parseInt(getParameterByName("autoOpen")); // seconds
+		this.autoOpenPeriod = parseInt(getParameterByName("autoOpen"), 10); // seconds
 		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
 		this.nextTeamToOpen = 0;
 	}
