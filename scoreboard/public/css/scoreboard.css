@@ -598,6 +598,11 @@ body {
 	z-index: 1000;
 	background-color: #1C3C51;
 }
+.compactTeamName {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
 #container {
 	position: relative;
 }

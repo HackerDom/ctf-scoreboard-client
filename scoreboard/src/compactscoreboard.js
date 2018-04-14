@@ -19,7 +19,7 @@ class CompactScoreboard extends Component {
 						<tr key={"tr"+i}>
 							<td><div className="place" style={{width:place_size + "px", height:place_size + "px", lineHeight:place_size + "px"}}>{i + 1}</div></td>
 							<td><img height={img_height} width={img_height} src={model.getLogo(team)}/></td>
-							<td><div>{team.name}</div></td>
+							<td><div className="compactTeamName" style={{"width":width - 200}}>{team.name}</div></td>
 							<td><div>{addSpacesToNumber(team.score)}</div></td>
 						</tr>
 					)}

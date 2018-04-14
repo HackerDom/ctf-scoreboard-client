@@ -13,10 +13,10 @@ import threading
 
 ROUND_TIME = 60
 GAME_LENGTH = 8
-service_names = ["atlablog", "weather", "cartographer", "sapmarine", "crash", "thebin"]
+service_names = ["atlablog", "weather", "cartographer", "sapmarine", "crash", "thebin", "theseven"]
 
 def team_(x): return str(x)
-def team_name(x): return 'TEAM{}'.format(x)
+def team_name(x): return '{}MSHP SSL: Kekulechko Net Diggers'.format(x)
 def service_(x): return str(x)
 
 def utctime(): # число секунд
@@ -184,9 +184,9 @@ async def write_to_websocket(text):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--teams', type=int, help='teams count',
-                        default=29)
+                        default=26)
     parser.add_argument('-s', '--services', type=int, help='services count',
-                        default=6)
+                        default=7)
     parser.add_argument('-m', '--start_minute', type=int, help='passed time in minutes',
                         default=60*3+10)
     return parser.parse_args()

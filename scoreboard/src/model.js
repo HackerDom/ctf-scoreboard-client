@@ -9,7 +9,7 @@ export class GameModel {
 		this.max_service_score = 0;
 		this.max_flags_sum = 0;
 		this.max_flags_allservices_sum = 0;
-		this.colors = ["#86D9E0", "#EB8BD7", "#E9CC76", "#7AA6F3", "#F7AB7C", "#AE86F2"];
+		this.colors = ["#86D9E0", "#EB8BD7", "#E9CC76", "#7AA6F3", "#F7AB7C", "#AE86F2", "#BFD686"];
 		this.initServices(info);
 		this.serviceIndex2attacksInRound = this.services.map((s) => 0);
 		this.teams = info.teams;
