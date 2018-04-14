@@ -16,6 +16,7 @@ class Scoreboard extends Component {
 		this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
 		this.autoOpenPeriod = parseInt(getParameterByName("autoOpen"), 10); // seconds
 		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
+		this.additionalStyle = getParameterByName("style");
 		this.nextTeamToOpen = 0;
 	}
 
@@ -107,7 +108,7 @@ class Scoreboard extends Component {
 		const attacks = this.model.serviceIndex2attacksInRound.reduce(function(a, b) {return a + b;});
 		const container = document.getElementById('container');
 		return (
-			<div>
+			<div className={this.additionalStyle === null ? "" : this.additionalStyle}>
 			{this.compactScoreboardWidth === 0 ? null : <CompactScoreboard model={this.model} width={this.compactScoreboardWidth}/>}
 			<div id="container-wrapper" style={{marginLeft: this.compactScoreboardWidth + "px"}}>
 			<div id="container">
