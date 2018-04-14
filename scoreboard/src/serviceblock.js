@@ -5,6 +5,7 @@ import Plusminusline from './plusminusline';
 import Slaline from './slaline';
 
 const status2Name = {101: "up", 102: "corrupt", 103: "mumble", 104: "down", 110: "checker error"};
+const status2Color = {101: "#84E668", 102: "#ffef65", 103: "#f9a963", 104: "#FF5656", 110: "#FFFFFF"};
 
 class Serviceblock extends Component {
 	render() {
@@ -26,13 +27,13 @@ class Serviceblock extends Component {
 				</div>
 				<Plusminusline plus={service.flags} minus={service.sflags} maxsum={max_flags_sum} className="flags_line"/>
 				<div className="sla">
-					<div className={"slapercent " + (service.status === 101 ? "green" : "red")}>
+					<div className={"slapercent"} style={{"color": status2Color[service.status]}}>
 						{Math.round(service.sla)}{Math.round(service.sla) < 100 ? "%" : ""}{service.status === 101
 							? <span className="mdi mdi-arrow-up-bold"/>
 							: <span className="mdi mdi-arrow-down-bold"/>}
 					</div>
 					<Slaline className="slalineblock" periods={sla_periods}/>
-					<div className="status"><div className={"red" + (service.status === 101 ? " hidden" : "")}>{status2Name[service.status]}</div></div>
+					<div className="status"><div className={(service.status === 101 ? " hidden" : "")}  style={{"color": status2Color[service.status]}}>{status2Name[service.status]}</div></div>
 					<div className="maxSla">max {maxSla}%</div>
 				</div>
 			</div>
