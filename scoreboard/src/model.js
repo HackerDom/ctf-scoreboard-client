@@ -79,7 +79,7 @@ export class GameModel {
 	}
 
 	getSlaPeriods(team_id, service_id) {
-		if(this.allScoreboards.length < this.allScoreboards[this.allScoreboards.length - 1].round) {
+		if(this.allScoreboards.length === 0 || this.allScoreboards.length < this.allScoreboards[this.allScoreboards.length - 1].round) {
 			return [];
 		}
 		if(this.allRoundsSla[team_id][service_id].length === this.allScoreboards.length) {
@@ -113,6 +113,8 @@ export class GameModel {
 	}
 
 	setScoreboard(scoreboard) {
+		if(scoreboard == null)
+			return;
 		this.scoreboard = scoreboard;
 		this.max_score = Math.max.apply(null,
 			this.scoreboard.scoreboard.map(

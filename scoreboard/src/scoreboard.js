@@ -28,6 +28,8 @@ class Scoreboard extends Component {
 			this.zoom = 1;
 		});
 		controller.on('updateScoreboard', () => {
+			if(this.model.scoreboard == undefined)
+				return;
 			if (!initialized) {
 				this.teamRefs = [];
 				for (let i = 0; i < this.model.getScoreboard().length; i++)
@@ -103,7 +105,7 @@ class Scoreboard extends Component {
 	}
 
 	render() {
-		if(this.model === undefined)
+		if(this.model === undefined || this.model.scoreboard == undefined)
 			return null;
 		const attacks = this.model.serviceIndex2attacksInRound.reduce(function(a, b) {return a + b;});
 		const container = document.getElementById('container');

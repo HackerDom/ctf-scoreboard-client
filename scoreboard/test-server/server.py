@@ -13,6 +13,7 @@ import threading
 
 ROUND_TIME = 60
 GAME_LENGTH = 8
+ROUNDS_COUNT = 8*60
 service_names = ["atlablog", "weather", "cartographer", "sapmarine", "crash", "thebin", "theseven"]
 
 def team_(x): return str(x)
@@ -27,6 +28,7 @@ def cround(): return (utctime() - start)//ROUND_TIME + 1
 connected = set()
 
 scoreboards = []
+currentRound = 0
 
 _allow_origin = '*'
 _allow_methods = 'PUT, GET, POST, DELETE, OPTIONS'
@@ -72,7 +74,7 @@ def info_page():
         'services': {service_(i + 1): service_names[i] for i in range(args.services)},
         'start': start,
         'end': start + GAME_LENGTH * 60 * 60,
-        'roundsCount': 8*60
+        'roundsCount': ROUNDS_COUNT
     }
 
 def create_first_scoreboard():
@@ -89,7 +91,7 @@ def create_first_scoreboard():
                         {
                             "flags": 0,
                             "fp": 0.0,
-                            "id": service_(s),
+                            "id": service_(s + 1),
                             "sla": 0.0,
                             "sflags": 0,
                             "status": 104,
@@ -107,12 +109,14 @@ def to2Signs(n):
     return round(n, 2)
 
 def create_scoreboard():
+    global currentRound
     if len(scoreboards) == 0:
         scoreboards.append(create_first_scoreboard())
         return scoreboards[0]
     prev = scoreboards[-1]
+    currentRound += 1
     scoreboards.append({
-        "round": prev["round"] + 1,
+        "round": currentRound,
         "scoreboard": [
             {
                 "name": team_name(t),
@@ -124,7 +128,7 @@ def create_scoreboard():
                     {
                         "flags": prev["scoreboard"][t - 1]["services"][s-1]["flags"] + int(random.uniform(0, s)),
                         "fp": max(0, prev["scoreboard"][t - 1]["services"][s-1]["fp"] + to2Signs(random.uniform(-2, s*2))),
-                        "id": service_(s),
+                        "id": s,
                         "sla": 10 + to2Signs(random.uniform(-10, s*10)),
                         "sflags": prev["scoreboard"][t - 1]["services"][s-1]["sflags"] + int(random.uniform(0, 2)),
                         "status": random.choice((101, 101, 101, 101, 101, 102, 103, 104, 110)),
@@ -188,7 +192,7 @@ def parse_args():
     parser.add_argument('-s', '--services', type=int, help='services count',
                         default=7)
     parser.add_argument('-m', '--start_minute', type=int, help='passed time in minutes',
-                        default=60*3+10)
+                        default=0)
     return parser.parse_args()
 
 
@@ -207,12 +211,16 @@ async def create_states():
         await asyncio.sleep(ROUND_TIME)
         create_scoreboard()
         await create_state()
+        if currentRound >= ROUNDS_COUNT:
+            break
 
 
 async def create_state():
+    if len(scoreboards) == 0:
+        return
     container = {
         "type": "state",
-        "value": scoreboards[-1]
+        "value": scoreboards[-1] if len(scoreboards) > 0 else None
     }
     json_str = json.dumps(container, separators=(',', ':'))
     await write_to_websocket(json_str)
