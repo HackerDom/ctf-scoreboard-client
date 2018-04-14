@@ -1,3 +1,23 @@
 .contrast .team_name {
 	color: white;
 }
+
+.contrast #progress #left {
+	color: white;
+}
+
+.contrast .team_service .flags {
+	opacity: 0.9;
+}
+
+.contrast #scoreboard .rect-green {
+	fill: #819AA5;
+}
+
+.contrast #scoreboard .rect-green.colored {
+	fill: #84E668;
+}
+
+.contrast .slaline {
+	border-bottom-color: rgba(255, 255, 255, 0.2);
+}
