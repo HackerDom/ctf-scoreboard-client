@@ -49,7 +49,7 @@ class Fbarchart extends Component {
 					"height": sFlagsBarHeight
 				};
 				sflagsResult[j].push(sflagsRect);
-				flagsBars.push(<rect key={"s"+i.toString()+j.toString()+color} height={sflagsRect.height} width={sflagsRect.width} x={sflagsRect.x} y={sflagsRect.y} style={{"fill":color}}/>);
+				sflagsBars.push(<rect key={"s"+i.toString()+j.toString()+color} height={sflagsRect.height} width={sflagsRect.width} x={sflagsRect.x} y={sflagsRect.y} style={{"fill":color}}/>);
 				flagsY -= flagsBarHeight;
 				sflagsY += sFlagsBarHeight;
 			}

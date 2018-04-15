@@ -200,7 +200,17 @@ export class GameModel {
 			let services_flags = [];
 			for(let s=0; s < team.services.length; s++) {
 				const service = team.services[s];
-				const prevService = prevScoreboard === null ? null : prevScoreboard.scoreboard[t].services[s];
+				let prevTeamData = null;
+				if(prevScoreboard !== null) {
+					for(let pt=0; pt<prevScoreboard.scoreboard.length; pt++) {
+						let prevTeam = prevScoreboard.scoreboard[pt];
+						if(prevTeam.team_id === t_id || prevTeam.id === t_id) {
+							prevTeamData = prevTeam;
+							break;
+						}
+					}
+				}
+				const prevService = prevTeamData === null ? null : prevTeamData.services[s];
 				const flags = service["flags"] - (prevService == null ? 0 : prevService["flags"]);
 				const sflags = service["sflags"] - (prevService == null ? 0 : prevService["sflags"]);
 				services_flags.push({"round": scoreboard.round, "flags": flags, "sflags": sflags, "fp" : service["fp"]});
