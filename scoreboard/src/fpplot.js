@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 const d3 = Object.assign(require("d3-shape"));
 
 const svgheight = 210;
-const minSumBorder = 5000;
+const minSumBorder = 3000;
 
 class fpplot extends Component {
 	render() {

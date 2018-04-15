@@ -9,7 +9,7 @@ class CompactScoreboard extends Component {
 		const scoreboard = model.getScoreboard();
 		const img_height = Math.max((window.innerHeight - 60) / scoreboard.length - 10, 3);
 		const place_size = Math.max(img_height - 4, 3);
-		const teams = _.sortBy(scoreboard, function(t){ return parseFloat(t.score); }).reverse();
+		const teams = scoreboard;
 		return (
 			<div id="compact-container-wrapper" style={{height:window.innerHeight+"px", width:width+"px"}}>
 			<div id="compact-container">
