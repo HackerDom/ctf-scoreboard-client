@@ -20,7 +20,7 @@ export class GameModel {
 		this.team_width = 480;
 		this.roundsCount = info.roundsCount;
 		if(this.roundsCount === undefined)
-			this.roundsCount = 480;
+			this.roundsCount = 770;
 		this.roundsPerGraphColumn = 15;
 		this.roundsPerGraphBorder = 60;
 		if(this.roundsCount > 600) {
