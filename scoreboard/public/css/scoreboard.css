@@ -615,3 +615,7 @@ body::-webkit-scrollbar {
 	bottom: 20px;
 	font-size: 36px;
 }
+
+.svgDelimeter {
+	fill: #000000;
+}

@@ -230,7 +230,7 @@ if __name__ == '__main__':
     start = utctime() - args.start_minute * 60
     events = []
     scores = {team_(i): 0 for i in range(args.teams)}
-    for r in range(cround() - 1):
+    for r in range(int(cround() - 1)):
         create_scoreboard()
     thread = threading.Thread(target=websocket_server_run)
     thread.start()

@@ -76,7 +76,7 @@ class Fbarchart extends Component {
 					</defs>
 					<rect fill={"url(#" + gradientId + ")"} fillOpacity="0.4" x="0" y={plusHeight + lineBetweenBarsHeight} width={width} height={svgheight - plusHeight - lineBetweenBarsHeight + 10}/>
 					{delimeters}
-					<rect height={lineBetweenBarsHeight} width={width} x={0} y={plusHeight} style={{"fill":"#000000"}}/>
+					<rect height={lineBetweenBarsHeight} width={width} x={0} y={plusHeight} className="svgDelimeter"/>
 					{flagsBars}
 					{sflagsBars}
 				</svg>

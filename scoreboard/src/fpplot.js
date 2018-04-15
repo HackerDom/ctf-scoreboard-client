@@ -46,7 +46,7 @@ class fpplot extends Component {
 			<div className={"flagsgraph"}>
 				<svg width={width} height={svgheight + 20}>
 					{delimeters}
-					<rect height="2" width={width} x={0} y={svgheight-2} style={{"fill":"#000000"}}/>
+					<rect height="2" width={width} x={0} y={svgheight-2} className="svgDelimeter"/>
 					{paths}
 				</svg>
 			</div>
