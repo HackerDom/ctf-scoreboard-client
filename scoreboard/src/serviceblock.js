@@ -13,10 +13,11 @@ class Serviceblock extends Component {
 		const service = this.props.service;
 		const team = this.props.team;
 		const round = this.props.round;
-		const max_service_score = this.props.model.max_service_score;
-		const max_flags_sum = this.props.model.max_flags_sum;
-		const sla_periods = this.props.model.getSlaPeriods(team.team_id, service.id);
-		const roundsCount = this.props.model.roundsCount;
+		const model = this.props.model;
+		const max_service_score = model.max_service_score;
+		const max_flags_sum = model.max_flags_sum;
+		const sla_periods = model.getSlaPeriods(team.team_id, service.id);
+		const roundsCount = model.roundsCount;
 		const maxSla = Math.ceil((service.sla*round + 100*(roundsCount - round))/roundsCount);
 		return (
 			<div key={service.id} title={service.stdout} className="team_border team_service">
@@ -32,7 +33,7 @@ class Serviceblock extends Component {
 							? <span className="mdi mdi-arrow-up-bold"/>
 							: <span className="mdi mdi-arrow-down-bold"/>}
 					</div>
-					<Slaline className="slalineblock" periods={sla_periods}/>
+					<Slaline className="slalineblock" periods={sla_periods} periodLength={model.slaPeriodLength} width={model.slalineWidth}/>
 					<div className="status"><div className={(service.status === 101 ? " hidden" : "")}  style={{"color": status2Color[service.status]}}>{status2Name[service.status]}</div></div>
 					<div className="maxSla">max {maxSla}%</div>
 				</div>

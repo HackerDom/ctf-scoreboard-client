@@ -120,13 +120,13 @@ class Scoreboard extends Component {
 						<div id="attacks-header">
 							<div className="service-name">attacks</div>
 							<div className="attacks">{attacks}</div>
-							<div className="min">/min</div>
+							<div className="min">/round</div>
 						</div>
 						{this.model.services.slice(0, this.model.servicesCount).map((service, i) =>
 							<div key={service.id} className="service-header">
 								<div className="service-name" style={{color: this.model.colors[i]}}>{service.name}</div>
 								<div className="attacks">{this.model.serviceIndex2attacksInRound[i]}</div>
-								<div className="min">/min</div>
+								<div className="min">/round</div>
 							</div>
 						)}
 					</div>

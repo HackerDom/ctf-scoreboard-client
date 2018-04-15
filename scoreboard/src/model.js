@@ -28,6 +28,9 @@ export class GameModel {
 			this.roundsPerGraphBorder *= 2;
 		}
 		this.selectedTeam = null;
+		this.slalineWidth = 80;
+		this.slaPeriodLength = Math.ceil(this.roundsCount / this.slalineWidth);
+		this.slalineWidth = Math.ceil(this.roundsCount / this.slaPeriodLength);
 	}
 
 	preloadLogos() {

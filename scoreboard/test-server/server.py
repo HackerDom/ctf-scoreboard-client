@@ -74,7 +74,7 @@ def info_page():
         'services': {service_(i + 1): service_names[i] for i in range(args.services)},
         'start': start,
         'end': start + GAME_LENGTH * 60 * 60,
-        'roundsCount': ROUNDS_COUNT
+        #'roundsCount': ROUNDS_COUNT
     }
 
 def create_first_scoreboard():
