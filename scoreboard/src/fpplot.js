@@ -25,7 +25,7 @@ class fpplot extends Component {
 			const l = d3.line()
 				.x(function(d){return d.x;})
 				.y(function(d){return d.y;})
-				.curve(d3.curveCardinal);
+				.curve(d3.curveMonotoneX);
 			const d = l(r)+"L"+r[r.length-1].x+","+r[0].y;
 			const color = this.props.model.colors[i];
 			return <path key={color} d={d} fill={color}/>
