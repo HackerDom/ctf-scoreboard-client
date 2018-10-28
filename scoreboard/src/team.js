@@ -14,6 +14,7 @@ class Team extends Component {
 	constructor(props) {
 		super(props);
 		this.handleClick = this.handleClick.bind(this);
+		this.open = this.open.bind(this);
 		this.deselect = this.deselect.bind(this);
 		this.state = {isSelected: false, plotIsVisible: false};
 	}
@@ -28,6 +29,13 @@ class Team extends Component {
 			isSelected: false,
 			plotIsVisible: false
 		})), plotsAnimationDuration);
+	}
+
+	open() {
+		this.setState(prevState => ({
+			plotIsVisible: true,
+			isSelected: true,
+		}));
 	}
 
 	handleClick() {

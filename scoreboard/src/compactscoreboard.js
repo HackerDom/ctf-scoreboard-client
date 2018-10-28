@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {addSpacesToNumber} from "./utils"
-import _ from "underscore";
 
 class CompactScoreboard extends Component {
 	render() {

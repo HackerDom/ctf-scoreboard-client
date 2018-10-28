@@ -28,7 +28,7 @@ class fpplot extends Component {
 				.curve(d3.curveMonotoneX);
 			const d = l(r)+"L"+r[r.length-1].x+","+r[0].y;
 			const color = this.props.model.colors[i];
-			return <path key={color} d={d} fill={color}/>
+			return <path key={color} d={d.replace(/\.\d+/g, "")} fill={color}/>
 		});
 
 		const delimeters = [];
@@ -46,7 +46,7 @@ class fpplot extends Component {
 			<div className={"flagsgraph"}>
 				<svg width={width} height={svgheight + 20}>
 					{delimeters}
-					<rect height="2" width={width} x={0} y={svgheight-2} className="svgDelimeter"/>
+					<rect height="2" width={Math.ceil(width)} x={0} y={svgheight-2} className="svgDelimeter"/>
 					{paths}
 				</svg>
 			</div>

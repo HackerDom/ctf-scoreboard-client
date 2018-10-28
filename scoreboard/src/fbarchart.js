@@ -30,7 +30,7 @@ class Fbarchart extends Component {
 			for(let j=model.servicesCount - 1; j>=0; j--) {
 				let flagsBarHeight = (maxSumFlags < 1 ? 0 : graphData[i][j].flags * plotHeight / max);
 				let sFlagsBarHeight = (maxSumSFlags < 1 ? 0 : graphData[i][j].sflags * plotHeight / max);
-				const color = this.props.model.colors[j];
+				const color = this.props.model.fillClasses[j];
 				const width = barWidth - 2 * barMargin;
 				const columnNumber = Math.ceil(graphData[i][j].round / roundsPerGraphColumn) - 1;
 				const x = columnNumber * barWidth + barMargin;
@@ -41,7 +41,7 @@ class Fbarchart extends Component {
 					"height": flagsBarHeight
 				};
 				flagsResult[j].push(flagsRect);
-				flagsBars.push(<rect key={i.toString()+j.toString()+color} height={flagsRect.height} width={flagsRect.width} x={flagsRect.x} y={flagsRect.y} style={{"fill":color}}/>);
+				flagsBars.push(<rect key={i.toString()+j.toString()+color} height={Math.ceil(flagsRect.height)} width={Math.ceil(flagsRect.width)} x={Math.ceil(flagsRect.x)} y={Math.ceil(flagsRect.y)} className={color}/>);
 				let sflagsRect = {
 					"x": x,
 					"y": sflagsY,
@@ -49,7 +49,7 @@ class Fbarchart extends Component {
 					"height": sFlagsBarHeight
 				};
 				sflagsResult[j].push(sflagsRect);
-				sflagsBars.push(<rect key={"s"+i.toString()+j.toString()+color} height={sflagsRect.height} width={sflagsRect.width} x={sflagsRect.x} y={sflagsRect.y} style={{"fill":color}}/>);
+				sflagsBars.push(<rect key={"s"+i.toString()+j.toString()+color} height={Math.ceil(sflagsRect.height)} width={Math.ceil(sflagsRect.width)} x={Math.ceil(sflagsRect.x)} y={Math.ceil(sflagsRect.y)} className={color}/>);
 				flagsY -= flagsBarHeight;
 				sflagsY += sFlagsBarHeight;
 			}
@@ -76,7 +76,7 @@ class Fbarchart extends Component {
 					</defs>
 					<rect fill={"url(#" + gradientId + ")"} fillOpacity="0.4" x="0" y={plusHeight + lineBetweenBarsHeight} width={width} height={svgheight - plusHeight - lineBetweenBarsHeight + 10}/>
 					{delimeters}
-					<rect height={lineBetweenBarsHeight} width={width} x={0} y={plusHeight} className="svgDelimeter"/>
+					<rect height={Math.round(lineBetweenBarsHeight)} width={Math.ceil(width)} x={0} y={Math.ceil(plusHeight)} className="svgDelimeter"/>
 					{flagsBars}
 					{sflagsBars}
 				</svg>

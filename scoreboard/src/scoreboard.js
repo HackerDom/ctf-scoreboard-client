@@ -16,6 +16,7 @@ class Scoreboard extends Component {
 		this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
 		this.autoOpenPeriod = parseInt(getParameterByName("autoOpen"), 10); // seconds
 		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
+		this.forSave = getParameterByName("forSave") !== null;
 		this.additionalStyle = getParameterByName("style");
 		this.nextTeamToOpen = 0;
 	}
@@ -39,6 +40,9 @@ class Scoreboard extends Component {
 			const _this = this;
 			_this.initResize();
 			initialized = true;
+			if(this.forSave) {
+				this.prepareForSave();
+			}
 		});
 		controller.on('history', () => {
 			if(initialized) {
@@ -68,6 +72,14 @@ class Scoreboard extends Component {
 					_this.nextTeamToOpen = 0;
 			}
 		}, this.autoOpenPeriod);
+	}
+
+	prepareForSave() {
+		const _this = this;
+		setInterval(() => {
+			for (let i = 0; i < this.teamRefs.length; i++)
+				_this.teamRefs[i].open();
+		}, 5000);
 	}
 
 	initResize() {
