@@ -158,8 +158,8 @@ export class GameModel {
 		this.allScoreboards.sort(function(a, b) {return a.round - b.round;});
 		if(this.allScoreboards.length > 2 && this.scoreboard !== undefined) {
 			this.previousScoreboard = this.allScoreboards[this.allScoreboards.length - 2];
-			const previousFlags = this.getAttacksCountInLastRoundForService(this.previousScoreboard.scoreboard);
-			const currentFlags = this.getAttacksCountInLastRoundForService(this.scoreboard.scoreboard);
+			const previousFlags = this.getAttacksCountInRoundForServices(this.previousScoreboard.scoreboard);
+			const currentFlags = this.getAttacksCountInRoundForServices(this.scoreboard.scoreboard);
 			for (let s=0; s<this.servicesCount; s++)
 				this.serviceIndex2attacksInRound[s] = currentFlags[s] - previousFlags[s];
 			for(let t=0; t<this.scoreboard.scoreboard.length; t++) {
@@ -168,7 +168,7 @@ export class GameModel {
 		}
 	}
 
-	getAttacksCountInLastRoundForService(scoreboard) {
+	getAttacksCountInRoundForServices(scoreboard) {
 		const result = this.services.map((s) => 0);
 		for(let t=0; t<scoreboard.length; t++) {
 			for(let s=0; s<this.servicesCount; s++) {
@@ -176,6 +176,28 @@ export class GameModel {
 			}
 		}
 		return result;
+	}
+
+	getDataForAttacksGraph(service) {
+		if(this.allScoreboards.length < this.allScoreboards[this.allScoreboards.length - 1].round) {
+			return {"graph": [0], "max": 0};
+		}
+		let result = [];
+		let maxAttacks = 0;
+		let maxSum = 0;
+		for(let round = 0; round < this.allScoreboards.length; round += this.roundsPerGraphColumn) {
+			const scoreboard = this.allScoreboards[round];
+			const attacksCount = this.getAttacksCountInRoundForServices(scoreboard.scoreboard);
+			const maxInRound = Math.max.apply(null, attacksCount);
+			maxAttacks = maxInRound > maxAttacks ? maxInRound : maxAttacks;
+			const sum = attacksCount.reduce((a, b) =>  a + b, 0);
+			maxSum = sum > maxSum ? sum : maxSum;
+			if(service !== undefined)
+				result.push(attacksCount[service]);
+			else
+				result.push(sum);
+		}
+		return {"graph": result, "max": service !== undefined ? maxAttacks : maxSum};
 	}
 
 	getDataForGraphs(team_id) {
