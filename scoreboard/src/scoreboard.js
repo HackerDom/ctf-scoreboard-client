@@ -48,6 +48,11 @@ class Scoreboard extends Component {
 		if(this.autoOpenPeriod !== 0) {
 			this.autoOpenScript();
 		}
+		this.isFirefox = typeof InstallTrigger !== 'undefined';
+		if(this.isFirefox)
+			document.body.classList.add("firefox");
+		// Internet Explorer 6-11
+		this.isIE = /*@cc_on!@*/false || !!document.documentMode;
 	}
 
 	autoOpenScript() {
@@ -70,14 +75,18 @@ class Scoreboard extends Component {
 		const _this = this;
 		function resize() {
 			const container = document.getElementById('container');
-			if(container !== null) {
+			if(container !== null && !_this.isIE) {
 				if (window.outerWidth - _this.compactScoreboardWidth < width) {
 					_this.zoom = (window.outerWidth - 40 - _this.compactScoreboardWidth) / width;
-					container.setAttribute("style", "zoom:" + _this.zoom + ";");
+					if(_this.isFirefox)
+						container.setAttribute("style", "transform:scale(" + _this.zoom + ");");
+					else
+						container.setAttribute("style", "zoom:" + _this.zoom + ";");
 				} else {
 					_this.zoom = 1;
 					container.setAttribute("style", "");
 				}
+				_this.forceUpdate();
 			}
 		}
 		window.onresize = function(event) {
@@ -114,7 +123,7 @@ class Scoreboard extends Component {
 			{this.compactScoreboardWidth === 0 ? null : <CompactScoreboard model={this.model} width={this.compactScoreboardWidth}/>}
 			<div id="container-wrapper" style={{marginLeft: this.compactScoreboardWidth + "px"}}>
 			<div id="container">
-				<div id="header-container" style={{width: this.compactScoreboardWidth === 0 ? "100%" : container === null ? this.width : container.offsetWidth}}>
+				<div id="header-container" style={{width: this.isFirefox ? container === null ? this.width + "px" : (container.offsetWidth / this.zoom) + "px" : this.compactScoreboardWidth === 0 ? "100%" : container === null ? this.width : container.offsetWidth}}>
 					<Progress width={this.width} start={this.model.info.start} end={this.model.info.end} compactScoreboardWidth={this.compactScoreboardWidth}/>
 					<div id="header" style={{width: this.width + "px"}}>
 						<div id="attacks-header">
@@ -131,7 +140,7 @@ class Scoreboard extends Component {
 						)}
 					</div>
 				</div>
-				<div id="scoreboard">
+				<div id="scoreboard" style={{width: this.isFirefox ? container === null ? this.width + "px" : (container.offsetWidth / this.zoom) + "px" : "auto"}}>
 					{this.getTeamRows()}
 				</div>
 			</div>

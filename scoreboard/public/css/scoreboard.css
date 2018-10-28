@@ -329,13 +329,14 @@ body::-webkit-scrollbar {
 	position: absolute;
 	left: 45px;
 	top: 3px;
+	transform-origin: top left;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	transition: left 0.2s, zoom 0.2s, border-color 0.2s;
+	transition: left 0.2s, transform 0.2s, border-color 0.2s;
 }
 
 .team_selected .slaline {
 	left: 0;
-	zoom: 1.75;
+	transform: scale(1.75);
 	border-bottom: 1px solid black;
 }
 
@@ -608,6 +609,7 @@ body::-webkit-scrollbar {
 }
 #container {
 	position: relative;
+	transform-origin: left top;
 }
 #bigleft {
 	position: fixed;
