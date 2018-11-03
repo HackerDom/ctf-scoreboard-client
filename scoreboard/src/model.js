@@ -158,8 +158,8 @@ export class GameModel {
 		this.allScoreboards.sort(function(a, b) {return a.round - b.round;});
 		if(this.allScoreboards.length > 2 && this.scoreboard !== undefined) {
 			this.previousScoreboard = this.allScoreboards[this.allScoreboards.length - 2];
-			const previousFlags = this.getAttacksCountInRoundForServices(this.previousScoreboard.scoreboard);
-			const currentFlags = this.getAttacksCountInRoundForServices(this.scoreboard.scoreboard);
+			const previousFlags = this.getFlagsCountInRoundForServices(this.previousScoreboard.scoreboard);
+			const currentFlags = this.getFlagsCountInRoundForServices(this.scoreboard.scoreboard);
 			for (let s=0; s<this.servicesCount; s++)
 				this.serviceIndex2attacksInRound[s] = currentFlags[s] - previousFlags[s];
 			for(let t=0; t<this.scoreboard.scoreboard.length; t++) {
@@ -168,7 +168,7 @@ export class GameModel {
 		}
 	}
 
-	getAttacksCountInRoundForServices(scoreboard) {
+	getFlagsCountInRoundForServices(scoreboard) {
 		const result = this.services.map((s) => 0);
 		for(let t=0; t<scoreboard.length; t++) {
 			for(let s=0; s<this.servicesCount; s++) {
@@ -186,8 +186,16 @@ export class GameModel {
 		let maxAttacks = 0;
 		let maxSum = 0;
 		for(let round = 0; round < this.allScoreboards.length; round += this.roundsPerGraphColumn) {
-			const scoreboard = this.allScoreboards[round];
-			const attacksCount = this.getAttacksCountInRoundForServices(scoreboard.scoreboard);
+			let attacksCount = this.services.map((s) => 0);
+			if(round > 0) {
+				const scoreboard = this.allScoreboards[round];
+				const previousScoreboard = this.allScoreboards[round - 1];
+				const flagsCount =  this.getFlagsCountInRoundForServices(scoreboard.scoreboard);
+				const previousFlagsCount = this.getFlagsCountInRoundForServices(previousScoreboard.scoreboard);
+				for (let i=0; i<this.services.length; i++) {
+					attacksCount[i] = flagsCount[i] - previousFlagsCount[i];
+				}
+			}
 			const maxInRound = Math.max.apply(null, attacksCount);
 			maxAttacks = maxInRound > maxAttacks ? maxInRound : maxAttacks;
 			const sum = attacksCount.reduce((a, b) =>  a + b, 0);
