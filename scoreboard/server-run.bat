@@ -1,1 +1,1 @@
-python .\test-server\server.py
+python .\test-server\server.py -m 480

@@ -21,7 +21,7 @@ export class GameModel {
 		this.team_width = 480;
 		this.roundsCount = info.roundsCount;
 		if(this.roundsCount === undefined)
-			this.roundsCount = 770;
+			this.roundsCount = 8*60*2; // TODO: set actual rounds count
 		this.roundsPerGraphColumn = 15;
 		this.roundsPerGraphBorder = 60;
 		if(this.roundsCount > 600) {
@@ -180,7 +180,7 @@ export class GameModel {
 
 	getDataForAttacksGraph(service) {
 		if(this.allScoreboards.length < this.allScoreboards[this.allScoreboards.length - 1].round) {
-			return {"graph": [0], "max": 0};
+			return {"graph": [{"value" : 0, "round" : 0}], "max": 0};
 		}
 		let result = [];
 		let maxAttacks = 0;
@@ -193,9 +193,9 @@ export class GameModel {
 			const sum = attacksCount.reduce((a, b) =>  a + b, 0);
 			maxSum = sum > maxSum ? sum : maxSum;
 			if(service !== undefined)
-				result.push(attacksCount[service]);
+				result.push({"value" : attacksCount[service], "round" : round});
 			else
-				result.push(sum);
+				result.push({"value" : sum, "round" : round});
 		}
 		return {"graph": result, "max": service !== undefined ? maxAttacks : maxSum};
 	}

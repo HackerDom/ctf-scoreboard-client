@@ -141,14 +141,14 @@ class Scoreboard extends Component {
 					<Progress width={this.width} start={this.model.info.start} end={this.model.info.end} compactScoreboardWidth={this.compactScoreboardWidth}/>
 					<div id="header" style={{width: this.width + "px"}}>
 						<div id="attacks-header">
-							<AttacksPlot color={"white"} attacks={this.model.getDataForAttacksGraph()}/>
+							<AttacksPlot color={"white"} attacks={this.model.getDataForAttacksGraph()} model={_this.model}/>
 							<div className="service-name">attacks</div>
 							<div className="attacks">{attacks}</div>
 							<div className="min">/round</div>
 						</div>
 						{this.model.services.slice(0, this.model.servicesCount).map((service, i) =>
 							<div key={service.id} className="service-header">
-								<AttacksPlot color={this.model.colors[i]} attacks={_this.model.getDataForAttacksGraph(i)}/>
+								<AttacksPlot color={this.model.colors[i]} attacks={_this.model.getDataForAttacksGraph(i)} model={_this.model}/>
 								<div className="service-name" style={{color: this.model.colors[i]}}>{service.name}</div>
 								<div className="attacks">{this.model.serviceIndex2attacksInRound[i]}</div>
 								<div className="min">/round</div>
