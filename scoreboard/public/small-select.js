@@ -1,0 +1,1 @@
+initSelect(document.currentScript);

@@ -64,7 +64,7 @@ class Team extends Component {
 		const flags = team.services.map((s) => s.flags).reduce((p, c) => p + c);
 		const sflags = team.services.map((s) => s.sflags).reduce((p, c) => p + c);
 		return (
-		<div className={"team " + (this.state.isSelected ? "team_selected" : "")} onClick={this.handleClick}>
+		<div><div className={"team " + (this.state.isSelected ? "team_selected" : "")} onClick={this.handleClick}>
 			<div className="team_centered" style={{width: width + "px"}}>
 				<div className="team_summary">
 					<div className="place"><span>{team.n}</span><span className="suffix">&thinsp;{suffix}</span></div>
@@ -116,6 +116,8 @@ class Team extends Component {
 				</div>
 				: null}
 			</div>
+		</div>
+			<div className="selectScriptHolder"/>
 		</div>
 		);
 	}

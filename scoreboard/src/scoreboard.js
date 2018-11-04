@@ -54,8 +54,6 @@ class Scoreboard extends Component {
 			this.autoOpenScript();
 		}
 		this.isFirefox = typeof InstallTrigger !== 'undefined';
-		if(this.isFirefox)
-			document.body.classList.add("firefox");
 		// Internet Explorer 6-11
 		this.isIE = /*@cc_on!@*/false || !!document.documentMode;
 	}
@@ -132,12 +130,28 @@ class Scoreboard extends Component {
 		const attacks = this.model.serviceIndex2attacksInRound.reduce(function(a, b) {return a + b;});
 		const container = document.getElementById('container');
 		const _this = this;
+		const headerContainerWidth =
+			this.isFirefox
+				? container === null
+					? this.width + "px"
+					: (container.offsetWidth / this.zoom) + "px"
+				: this.compactScoreboardWidth === 0
+					? "100%"
+					: container === null
+						? this.width
+						: container.offsetWidth;
+		const scoreboardWidth =
+			this.isFirefox
+				? container === null
+					? this.width + "px"
+					: (container.offsetWidth / this.zoom) + "px"
+				: "auto";
 		return (
 			<div className={this.additionalStyle === null ? "" : this.additionalStyle}>
 			{this.compactScoreboardWidth === 0 ? null : <CompactScoreboard model={this.model} width={this.compactScoreboardWidth}/>}
 			<div id="container-wrapper" style={{marginLeft: this.compactScoreboardWidth + "px"}}>
 			<div id="container">
-				<div id="header-container" style={{width: this.isFirefox ? container === null ? this.width + "px" : (container.offsetWidth / this.zoom) + "px" : this.compactScoreboardWidth === 0 ? "100%" : container === null ? this.width : container.offsetWidth}}>
+				<div id="header-container" style={{width: headerContainerWidth}}>
 					<Progress width={this.width} start={this.model.info.start} end={this.model.info.end} compactScoreboardWidth={this.compactScoreboardWidth}/>
 					<div id="header" style={{width: this.width + "px"}}>
 						<div id="attacks-header">
@@ -156,7 +170,8 @@ class Scoreboard extends Component {
 						)}
 					</div>
 				</div>
-				<div id="scoreboard" style={{width: this.isFirefox ? container === null ? this.width + "px" : (container.offsetWidth / this.zoom) + "px" : "auto"}}>
+				<div id="scoreboard" style={{width: scoreboardWidth}}>
+					<div id="resizeScriptHolder"/>
 					{this.getTeamRows()}
 				</div>
 			</div>
