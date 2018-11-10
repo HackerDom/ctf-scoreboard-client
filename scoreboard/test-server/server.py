@@ -10,7 +10,7 @@ import asyncio
 import websockets
 import threading
 
-ROUNDS_PER_MINUTE = 2
+ROUNDS_PER_MINUTE = 1
 ROUND_TIME = 60/ROUNDS_PER_MINUTE
 GAME_LENGTH = 8
 ROUNDS_COUNT = 8*60*ROUNDS_PER_MINUTE

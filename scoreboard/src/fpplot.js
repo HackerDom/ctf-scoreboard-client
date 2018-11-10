@@ -36,7 +36,7 @@ class fpplot extends Component {
 		for(let i=1; i<=roundsCount/model.roundsPerGraphBorder; i++) {
 			let x = Math.ceil(step*i) - 1;
 			delimeters.push(<rect key={i} x={x} y={0} width={1} height={svgheight} className="plotborder"/>);
-			if(x < width - 50) {
+			if(x < width - 30) {
 				let text = <text key={"t" + i} x={x} y={svgheight + 20} className="plottext">{i * model.roundsPerGraphBorder}</text>;
 				delimeters.push(text);
 			}
