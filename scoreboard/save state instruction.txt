@@ -3,7 +3,7 @@
 3) С помощью document.documentElement.innerHTML в консоли получить весь html
 4) Созранить html в файл
 5) Добавить точки спереди в пути к подключаемым файлам в начале html
-6) Удалить вхождения подстроки " team_delected"
+6) Удалить вхождения подстроки " team_selected"
 7) Удалить поключение скрипта bundle в конце
 8) Заменить div с id resizeScriptHolder на <script src="./small.js"></script>
 9) Заменить все div c классом selectScriptHolder на <script src="./small-select.js"></script>

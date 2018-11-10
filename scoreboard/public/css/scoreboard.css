@@ -527,6 +527,7 @@ body {
 .team_plots .score_block {
 	position: absolute;
 	top: 95px;
+	width: 300px;
 }
 
 .team_plots .flags_block {
