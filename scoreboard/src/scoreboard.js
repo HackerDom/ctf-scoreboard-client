@@ -86,6 +86,8 @@ class Scoreboard extends Component {
 		const _this = this;
 		function resize() {
 			const container = document.getElementById('container');
+			if(window.outerWidth < 150)
+				return;
 			if(container !== null && !_this.isIE) {
 				if (window.outerWidth - _this.compactScoreboardWidth < width) {
 					_this.zoom = (window.outerWidth - 40 - _this.compactScoreboardWidth) / width;
