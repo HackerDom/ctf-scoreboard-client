@@ -1,5 +1,5 @@
 body {
-	background: #1C3C51;
+	background: #392146;
 	margin: 0;
 	font-family: 'Roboto', sans-serif;
 	color: white;
@@ -16,7 +16,7 @@ body {
 
 #header-container {
 	height: 90px;
-	background: #274A61;
+	background: #573466;
 	box-shadow: inset 0 -1px 0 0 rgba(255,255,255,0.1), 0 2px 10px 0 rgba(0,0,0,0.5);
 	position: fixed;
 	z-index: 100;
@@ -127,8 +127,16 @@ body {
 	transition: height 0.2s ease-in;
 }
 
+:nth-child(odd) > .team {
+	background-color: #392146;
+}
+
+:nth-child(even) > .team {
+	background-color: #301C38;
+}
+
 .team_selected {
-	background-color: #274A61;
+	background-color: #573466;
 	box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.2), inset 0 -1px 0 0 rgba(255,255,255,0.2);
 	height: 565px;
 }
@@ -138,7 +146,7 @@ body {
 }
 
 .team:hover {
-	background-color: #274A61;
+	background-color: #573466;
 	box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.2), inset 0 -1px 0 0 rgba(255,255,255,0.2);
 }
 
@@ -234,7 +242,7 @@ body {
 
 .team_name {
 	font-weight: 900;
-	color: black;
+	color: white;
 	font-size: 24px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -248,7 +256,7 @@ body {
 
 .ip {
 	color: white;
-	opacity: 0.2;
+	opacity: 0.6;
 	font-size: 11px;
 	margin-top: -2px;
 }
@@ -337,7 +345,7 @@ body {
 .team_selected .slaline {
 	left: 0;
 	transform: scale(1.75);
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .slapercent {
@@ -509,7 +517,7 @@ body {
 }
 
 .team_plots .counts_title {
-	color: black;
+	color: #d6e063;
 	font-weight: 900;
 	font-size: 20px;
 }
@@ -643,30 +651,24 @@ body {
 	fill: #000000;
 }
 
-.c1 {
-	fill: #BFD686;
-}
-
-.c2 {
-	fill: #86D9E0;
-}
-
-.c3 {
-	fill: #7AA6F3;
-}
-
-.c4 {
-	fill: #E9CC76;
-}
-
-.c5 {
-	fill: #AE86F2;
-}
-
-.c6 {
-	fill: #EB8BD7;
-}
-
-.c7 {
-	fill: #F7AB7C;
-}
+.c1 { fill: #BFD686; }
+.c2 { fill: #86D9E0; }
+.c3 { fill: #7AA6F3; }
+.c4 { fill: #E9CC76; }
+.c5 { fill: #AE86F2; }
+.c6 { fill: #EB8BD7; }
+.c7 { fill: #F7AB7C; }
+.c8 { fill: #D686BF; }
+.c9 { fill: #D9E086; }
+.c10 { fill: #A6F37A; }
+.c11 { fill: #CC76E9; }
+.c12 { fill: #86F2AE; }
+.c13 { fill: #8BD7EB; }
+.c14 { fill: #AB7CF7; }
+.c15 { fill: #86BFD6; }
+.c16 { fill: #E086D9; }
+.c17 { fill: #F37AA6; }
+.c18 { fill: #76E9CC; }
+.c19 { fill: #F2AE86; }
+.c20 { fill: #D7EB8B; }
+.c21 { fill: #7CF7AB; }

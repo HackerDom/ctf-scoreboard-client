@@ -87,6 +87,8 @@ class Team extends Component {
 					{team.services.map((service, i) => {
 						if(i >= this.props.model.servicesCount)
 							return null;
+						if (!this.props.model.active_services.includes(service.id))
+							return null;
 						return (<ServiceBlock key={"t" + team.team_id + "s" + service.id} service={service} team={team} model={this.props.model} color={this.props.model.colors[i]} round={round}/>);
 					})}
 				</div>

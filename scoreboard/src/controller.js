@@ -11,7 +11,7 @@ export default class Controller extends EventEmitter {
 			this.emit('flagStat');
 		});
 
-		fetch("//" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) : "127.0.0.1:8000") + "/api/info", {mode: 'cors'})
+		fetch("//" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) : "localhost:3000") + "/api/info", {mode: 'cors'})
 			.then(response => {
 				if (response.ok)
 					return response.json();
@@ -27,7 +27,7 @@ export default class Controller extends EventEmitter {
 	}
 
 	getAllScoreboards() {
-		fetch("//" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) : "127.0.0.1:8000") + "/history/scoreboard.json", {mode: 'cors'})
+		fetch("//" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) : "localhost:3000") + "/history/scoreboard.json", {mode: 'cors'})
 			.then(response => {
 				if (response.ok)
 					return response.json();
@@ -45,7 +45,7 @@ export default class Controller extends EventEmitter {
 	connectWebSocket() {
 		let first = true;
 		const isHttps = window.location.protocol === "https:";
-		const ws = new WebSocket((isHttps ? "wss": "ws") + "://" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) : "127.0.0.1:8080") + "/api/events");
+		const ws = new WebSocket((isHttps ? "wss": "ws") + "://" + (process.env.NODE_ENV === 'production' ? (window.location.hostname + (window.location.port ? ':' + window.location.port : '' )) : "localhost:3000") + "/api/events");
 		ws.onopen = (e) => {
 			console.log('WebSocket opened.');
 		};

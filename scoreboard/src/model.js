@@ -10,8 +10,12 @@ export class GameModel {
 		this.max_flags_sum = 0;
 		this.max_flags_allservices_sum = 0;
 		this.initServices(info);
-		this.colors = ["#BFD686", "#86D9E0", "#7AA6F3", "#E9CC76", "#AE86F2", "#EB8BD7", "#F7AB7C" ];
-		this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7" ];
+		this.colors = [
+			"#BFD686", "#86D9E0", "#7AA6F3", "#E9CC76", "#AE86F2", "#EB8BD7", "#F7AB7C",
+			"#D686BF", "#D9E086", "#A6F37A", "#CC76E9", "#86F2AE", "#8BD7EB", "#AB7CF7",
+			"#86BFD6", "#E086D9", "#F37AA6", "#76E9CC", "#F2AE86", "#D7EB8B", "#7CF7AB",
+		];
+		this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20" ];
 		if(this.servicesCount < 7)
 		{
 			this.colors.shift();
@@ -37,6 +41,7 @@ export class GameModel {
 		this.slalineWidth = 80;
 		this.slaPeriodLength = Math.ceil(this.roundsCount / this.slalineWidth);
 		this.slalineWidth = Math.ceil(this.roundsCount / this.slaPeriodLength);
+		this.active_services = this.services.map((_service, index) => index);
 	}
 
 	preloadLogos() {
@@ -132,6 +137,34 @@ export class GameModel {
 		if(scoreboard == null)
 			return;
 		this.scoreboard = scoreboard;
+		let active_services = [];
+		for (let service_id in this.scoreboard.services) {
+			if (! this.scoreboard.services.hasOwnProperty(service_id))
+				continue;
+			let service = this.scoreboard.services[service_id];
+			if (service.active)
+				active_services.push(parseInt(service_id));
+		}
+		this.active_services = active_services;
+
+		/*
+		for (let team_id in this.scoreboard.scoreboard) {
+			if (! this.scoreboard.scoreboard.hasOwnProperty(team_id))
+				continue;
+			let team_scoreboard = this.scoreboard.scoreboard[team_id];
+			// console.log(team_scoreboard);
+			let team_services = team_scoreboard.services;
+			let active_team_services = [];
+			for (let service_id in team_services) {
+				if (! team_services.hasOwnProperty(service_id))
+					continue;
+				if (active_services.includes(service_id))
+					active_team_services[service_id] = team_services[service_id];
+			}
+			console.log(team_scoreboard.services);
+			console.log(active_team_services);
+			this.scoreboard.scoreboard[team_id].services = active_team_services;
+		}*/
 		this.max_score = Math.max.apply(null,
 			this.scoreboard.scoreboard.map(
 				function(t) { return parseFloat(t.score); }));
