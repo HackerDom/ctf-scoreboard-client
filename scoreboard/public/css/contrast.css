@@ -1,7 +1,3 @@
-.contrast .team_name {
-	color: white;
-}
-
 .contrast #progress #left {
 	color: white;
 }
@@ -59,10 +55,6 @@
 	opacity: 0;
 }
 
-.contrast .team_plots .counts_title {
-	color: white;
-}
-
 .contrast #header .min {
 	color: white;
 }
@@ -96,4 +88,8 @@
 
 .contrast .team_selected .slaline {
 	left: 0;
+}
+
+.contrast .attacksplot path {
+	stroke: white;
 }

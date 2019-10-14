@@ -57,12 +57,13 @@ class Team extends Component {
 		const host = this.props.model.getHost(team);
 		const logo = this.props.model.getLogo(team);
 		const max_score = this.props.model.max_score;
-		const width = this.props.model.team_width + this.props.model.one_servive_width * this.props.model.servicesCount;
+		const width = this.props.model.team_width + this.props.model.one_service_width * this.props.servicesCount;
 		const graphData = this.state.plotIsVisible ? this.props.model.getDataForGraphs(team.team_id) : null;
 		const round = this.props.model.getRound();
-		const meanSLA = team.services.map((s) => s.sla).reduce((p, c) => p + c) / this.props.model.servicesCount;
+		const meanSLA = team.services.map((s) => s.sla).reduce((p, c) => p + c) / this.props.servicesCount;
 		const flags = team.services.map((s) => s.flags).reduce((p, c) => p + c);
 		const sflags = team.services.map((s) => s.sflags).reduce((p, c) => p + c);
+		let serviceIndex = 0;
 		return (
 		<div><div className={"team " + (this.state.isSelected ? "team_selected" : "")} onClick={this.handleClick}>
 			<div className="team_centered" style={{width: width + "px"}}>
@@ -89,6 +90,12 @@ class Team extends Component {
 							return null;
 						if (!this.props.model.active_services.includes(service.id))
 							return null;
+
+						let servicePercentile = serviceIndex * 100 / this.props.model.active_services.length;
+						serviceIndex++;
+						if (servicePercentile < this.props.servicesFrom || servicePercentile >= this.props.servicesTo)
+							return null;
+
 						return (<ServiceBlock key={"t" + team.team_id + "s" + service.id} service={service} team={team} model={this.props.model} color={this.props.model.colors[i]} round={round}/>);
 					})}
 				</div>

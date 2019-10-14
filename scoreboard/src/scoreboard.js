@@ -5,6 +5,7 @@ import Progress from './progress';
 import CompactScoreboard from './compactscoreboard';
 import AttacksPlot from './attacksplot';
 import {getParameterByName} from "./utils"
+import Timer from "./timer"
 
 const controller = new Controller();
 const collapsedTeamWidth = 100;
@@ -19,6 +20,15 @@ class Scoreboard extends Component {
 		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
 		this.forSave = getParameterByName("forSave") !== null;
 		this.additionalStyle = getParameterByName("style");
+
+		// Percentiles. I.e. ?servicesFrom=0&servicesTo=50
+		this.servicesFrom = parseInt(getParameterByName("servicesFrom"), 10);
+		if (isNaN(this.servicesFrom))
+			this.servicesFrom = 0;
+		this.servicesTo = parseInt(getParameterByName("servicesTo"), 10);
+		if (isNaN(this.servicesTo))
+			this.servicesTo = 100;
+
 		this.nextTeamToOpen = 0;
 	}
 
@@ -36,9 +46,17 @@ class Scoreboard extends Component {
 				for (let i = 0; i < this.model.getScoreboard().length; i++)
 					this.teamRefs.push(null);
 			}
-			this.forceUpdate();
 			const _this = this;
-			this.width = this.model.team_width + this.model.one_servive_width * this.model.active_services.length;
+			let services_count = this.model.active_services.length;
+			let services_count_part = 0;
+			for (let service_index = 0; service_index < services_count; service_index++) {
+				let service_percentile = service_index * 100 / services_count;
+				if (service_percentile >= this.servicesFrom && service_percentile < this.servicesTo)
+					services_count_part++;
+			}
+			this.services_count_part = services_count_part;
+			this.width = this.model.team_width + this.model.one_service_width * services_count_part;
+			this.forceUpdate();
 			_this.initResize();
 			initialized = true;
 			if(this.forSave) {
@@ -122,6 +140,7 @@ class Scoreboard extends Component {
 	getTeamRows() {
 		return this.model.getScoreboard().map((t, i) =>
 			<Team ref={instance => { this.teamRefs[i] = instance; }} key={t.team_id} team={t} model={this.model} handleClick={this.onTeamClick}
+				  servicesFrom={this.servicesFrom} servicesTo={this.servicesTo} servicesCount={this.services_count_part}
 				  isSelected={this.model.selectedTeam !== null && this.model.selectedTeam.id === t.team_id}/>
 		);
 	}
@@ -148,6 +167,7 @@ class Scoreboard extends Component {
 					? this.width + "px"
 					: (container.offsetWidth / this.zoom) + "px"
 				: "auto";
+		let serviceIndex = 0;
 		return (
 			<div className={this.additionalStyle === null ? "" : this.additionalStyle}>
 			{this.compactScoreboardWidth === 0 ? null : <CompactScoreboard model={this.model} width={this.compactScoreboardWidth}/>}
@@ -164,14 +184,25 @@ class Scoreboard extends Component {
 						</div>
 						{this.model.services.slice(0, this.model.servicesCount).map((service, i) =>
 							{
-								if (! this.model.active_services.includes(parseInt(service.id)))
+								if (! this.model.active_services.includes(parseInt(service.id, 10)))
 									return null;
+								let servicePercentile = serviceIndex * 100 / this.model.active_services.length;
+								serviceIndex++;
+								if (servicePercentile < this.servicesFrom || servicePercentile >= this.servicesTo)
+									return null;
+
+								let service_disable_interval = this.model.service_disable_intervals[parseInt(service.id, 10)];
+
 								return (
 									<div key={service.id} className="service-header">
 										<AttacksPlot color={this.model.colors[i]} attacks={_this.model.getDataForAttacksGraph(i)} model={_this.model}/>
 										<div className="service-name" style={{color: this.model.colors[i]}}>{service.name}</div>
 										<div className="attacks">{this.model.serviceIndex2attacksInRound[i]}</div>
 										<div className="min">/round</div>
+										{
+											service_disable_interval != null && service_disable_interval > 0 &&
+											<Timer seconds={service_disable_interval}/>
+										}
 									</div>
 								)
 							}

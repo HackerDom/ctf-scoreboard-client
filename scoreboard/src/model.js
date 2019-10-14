@@ -26,7 +26,7 @@ export class GameModel {
 		this.info = info;
 		this.preloadLogos();
 		this.initAllRoundsSla(info);
-		this.one_servive_width = 160;
+		this.one_service_width = 160;
 		this.team_width = 480;
 		this.roundsCount = info.roundsCount;
 		if(this.roundsCount === undefined)
@@ -137,6 +137,7 @@ export class GameModel {
 		if(scoreboard == null)
 			return;
 		this.scoreboard = scoreboard;
+		this.service_disable_intervals = {};
 		let active_services = [];
 		for (let service_id in this.scoreboard.services) {
 			if (! this.scoreboard.services.hasOwnProperty(service_id))
@@ -144,27 +145,10 @@ export class GameModel {
 			let service = this.scoreboard.services[service_id];
 			if (service.active)
 				active_services.push(parseInt(service_id));
+			this.service_disable_intervals[service_id] = service.disable_interval;
 		}
 		this.active_services = active_services;
 
-		/*
-		for (let team_id in this.scoreboard.scoreboard) {
-			if (! this.scoreboard.scoreboard.hasOwnProperty(team_id))
-				continue;
-			let team_scoreboard = this.scoreboard.scoreboard[team_id];
-			// console.log(team_scoreboard);
-			let team_services = team_scoreboard.services;
-			let active_team_services = [];
-			for (let service_id in team_services) {
-				if (! team_services.hasOwnProperty(service_id))
-					continue;
-				if (active_services.includes(service_id))
-					active_team_services[service_id] = team_services[service_id];
-			}
-			console.log(team_scoreboard.services);
-			console.log(active_team_services);
-			this.scoreboard.scoreboard[team_id].services = active_team_services;
-		}*/
 		this.max_score = Math.max.apply(null,
 			this.scoreboard.scoreboard.map(
 				function(t) { return parseFloat(t.score); }));

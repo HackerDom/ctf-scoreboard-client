@@ -7,24 +7,25 @@
     "event-emitter-es6": "^1.1.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17",
+    "react-scripts": "3.2.0",
     "underscore": "^1.8.3"
-  },
-  "proxy": {
-    "^/api/events": {
-      "target": "http://10.60.3.1",
-      "ws": true,
-      "changeOrigin": true
-    },
-    "/": {
-      "target": "http://10.60.3.1",
-      "changeOrigin": true
-    }
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
