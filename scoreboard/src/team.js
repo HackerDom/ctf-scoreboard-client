@@ -60,7 +60,7 @@ class Team extends Component {
 		const width = this.props.model.team_width + this.props.model.one_service_width * this.props.servicesCount;
 		const graphData = this.state.plotIsVisible ? this.props.model.getDataForGraphs(team.team_id) : null;
 		const round = this.props.model.getRound();
-		const meanSLA = team.services.map((s) => s.sla).reduce((p, c) => p + c) / this.props.servicesCount;
+		const meanSLA = team.services.map((s) => s.sla).reduce((p, c) => p + c) / this.props.model.servicesCount;
 		const flags = team.services.map((s) => s.flags).reduce((p, c) => p + c);
 		const sflags = team.services.map((s) => s.sflags).reduce((p, c) => p + c);
 		let serviceIndex = 0;
