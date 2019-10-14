@@ -25,7 +25,8 @@ class Timer extends Component {
         seconds = seconds % 60;
         let hours = Math.floor(minutes / 60);
         minutes = minutes % 60;
-        return <div className="timer">
+        return <div className="timer" title="This service will disappear soon">
+            <span className="mdi mdi-timer green"></span>&nbsp;
             { hours }:{ pad(minutes, 2) }:{ pad(seconds, 2) }
         </div>
     }
