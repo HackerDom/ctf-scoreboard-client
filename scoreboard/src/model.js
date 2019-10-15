@@ -13,10 +13,10 @@ export class GameModel {
 		this.colors = [
 			"#BFD686", "#86D9E0", "#7AA6F3", "#E9CC76",
 			"#AE86F2", "#EB8BD7", "#F7AB7C",
-			"#D686BF", "#D9E086", "#CC76E9",
+			"#D686BF", "#52E075", "#2239e9",
 			"#8BD7EB", "#AB7CF7",
-			"#86BFD6", "#E086D9", "#F37AA6", "#76E9CC",
-			"#F2AE86", "#D7EB8B"
+			"#d68018", "#E086D9", "#F37AA6", "#76E9CC",
+			"#F2AE86", "#E3EB4E"
 		];
 		this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20" ];
 		if(this.servicesCount < 7)
