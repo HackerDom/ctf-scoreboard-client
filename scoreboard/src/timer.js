@@ -14,7 +14,7 @@ class Timer extends Component {
         let start = Date.now() / 1000;
         this.timer = setInterval(() => this.setState(s => {
             return {
-                seconds: props.seconds - (Date.now() / 1000 - start)
+                seconds: Math.max(0, props.seconds - (Date.now() / 1000 - start))
             }
         }), 1000);
     }
