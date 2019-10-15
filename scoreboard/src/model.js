@@ -91,7 +91,7 @@ export class GameModel {
 				this.servicesCount++;
 			}
 		}
-		this.services.sort(function(a, b) {return a.id > b.id;})
+		this.services.sort(function(a, b) {return parseInt(a.id) > parseInt(b.id);});
 	}
 
 	getHost(team) {
