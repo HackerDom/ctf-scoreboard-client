@@ -507,7 +507,7 @@ body {
 
 .team_plots .counts {
 	position: absolute;
-	left: 0;
+	left: -140px;
 	top: 0;
 	font-size: 22px;
 }

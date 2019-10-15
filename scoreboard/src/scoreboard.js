@@ -17,7 +17,7 @@ class Scoreboard extends Component {
 		this.compactScoreboardWidth = parseInt(getParameterByName("compactScoreboardWidth"), 10);
 		this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
 		this.autoOpenPeriod = parseInt(getParameterByName("autoOpen"), 10); // seconds
-		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
+		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000 / 3; // / 3 is hack, remove it!
 		this.forSave = getParameterByName("forSave") !== null;
 		this.additionalStyle = getParameterByName("style");
 
@@ -85,7 +85,7 @@ class Scoreboard extends Component {
 					window.scroll({top: collapsedTeamWidth * this.zoom * _this.nextTeamToOpen, left: 0, behavior: 'smooth'});
 				}
 				_this.nextTeamToOpen++;
-				if(_this.nextTeamToOpen >= _this.model.getScoreboard().length)
+				if(_this.nextTeamToOpen >= 10)
 					_this.nextTeamToOpen = 0;
 			}
 		}, this.autoOpenPeriod);
