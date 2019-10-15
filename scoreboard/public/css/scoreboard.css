@@ -657,18 +657,16 @@ body {
 .c7 { fill: #F7AB7C; }
 .c8 { fill: #D686BF; }
 .c9 { fill: #D9E086; }
-.c10 { fill: #A6F37A; }
-.c11 { fill: #CC76E9; }
-.c12 { fill: #86F2AE; }
-.c13 { fill: #8BD7EB; }
-.c14 { fill: #AB7CF7; }
-.c15 { fill: #86BFD6; }
-.c16 { fill: #E086D9; }
-.c17 { fill: #F37AA6; }
-.c18 { fill: #76E9CC; }
-.c19 { fill: #F2AE86; }
-.c20 { fill: #D7EB8B; }
-.c21 { fill: #7CF7AB; }
+.c10 { fill: #CC76E9; }
+.c11 { fill: #8BD7EB; }
+.c12 { fill: #AB7CF7; }
+.c13 { fill: #86BFD6; }
+.c14 { fill: #E086D9; }
+.c15 { fill: #F37AA6; }
+.c16 { fill: #76E9CC; }
+.c17 { fill: #F2AE86; }
+.c18 { fill: #D7EB8B; }
+
 
 .timer {
 	/* Bljadj */

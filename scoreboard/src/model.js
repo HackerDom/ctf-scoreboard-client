@@ -11,9 +11,12 @@ export class GameModel {
 		this.max_flags_allservices_sum = 0;
 		this.initServices(info);
 		this.colors = [
-			"#BFD686", "#86D9E0", "#7AA6F3", "#E9CC76", "#AE86F2", "#EB8BD7", "#F7AB7C",
-			"#D686BF", "#D9E086", "#A6F37A", "#CC76E9", "#86F2AE", "#8BD7EB", "#AB7CF7",
-			"#86BFD6", "#E086D9", "#F37AA6", "#76E9CC", "#F2AE86", "#D7EB8B", "#7CF7AB",
+			"#BFD686", "#86D9E0", "#7AA6F3", "#E9CC76",
+			"#AE86F2", "#EB8BD7", "#F7AB7C",
+			"#D686BF", "#D9E086", "#CC76E9",
+			"#8BD7EB", "#AB7CF7",
+			"#86BFD6", "#E086D9", "#F37AA6", "#76E9CC",
+			"#F2AE86", "#D7EB8B"
 		];
 		this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20" ];
 		if(this.servicesCount < 7)
