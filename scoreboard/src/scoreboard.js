@@ -200,7 +200,7 @@ class Scoreboard extends Component {
 										<div className="attacks">{this.model.serviceIndex2attacksInRound[i]}</div>
 										<div className="min">/round</div>
 										{
-											service_disable_interval != null && service_disable_interval > 0 &&
+											service_disable_interval != null &&
 											<Timer seconds={service_disable_interval}/>
 										}
 									</div>
