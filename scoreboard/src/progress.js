@@ -31,14 +31,14 @@ class Progress extends Component {
 		return this.diffMs;
 	}
 
-	static milisecondsToTimeStr(msec) {
+	static milisecondsToTimeStr(msec, withSeconds=true) {
 		const hh = Math.floor(msec / 1000 / 60 / 60);
 		msec -= hh * 1000 * 60 * 60;
 		const mm = Math.floor(msec / 1000 / 60);
 		msec -= mm * 1000 * 60;
 		const ss = Math.floor(msec / 1000);
 		msec -= ss * 1000;
-		return `${hh}:${Progress.leadingZero(mm)}:${Progress.leadingZero(ss)}`;
+		return `${hh}:${Progress.leadingZero(mm)}` + (withSeconds ? `:${Progress.leadingZero(ss)}` : '');
 	}
 
 	static leadingZero(n) {
@@ -52,7 +52,7 @@ class Progress extends Component {
 		}
 		const percent = Math.round((this.diffMs - remainingMs) / this.diffMs * 100);
 		const left = "-" + Progress.milisecondsToTimeStr(remainingMs);
-		const current = Progress.milisecondsToTimeStr(this.diffMs - remainingMs).substr(0, 4);
+		const current = Progress.milisecondsToTimeStr(this.diffMs - remainingMs, false);
 		return (
 			<div>
 				<div id="progress" style={{width: this.props.width + "px"}}>
