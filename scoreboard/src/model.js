@@ -1,4 +1,5 @@
 import _ from "underscore";
+import {getParameterByName} from "./utils";
 
 export class GameModel {
 	constructor(info) {
@@ -145,12 +146,15 @@ export class GameModel {
 			return;
 		this.scoreboard = scoreboard;
 		this.service_disable_intervals = {};
+
+		let showAll = getParameterByName("showAll") !== null;
+
 		let active_services = [];
 		for (let service_id in this.scoreboard.services) {
 			if (! this.scoreboard.services.hasOwnProperty(service_id))
 				continue;
 			let service = this.scoreboard.services[service_id];
-			if (service.active)
+			if (service.active || showAll)
 				active_services.push(parseInt(service_id));
 			this.service_disable_intervals[service_id] = service.disable_interval;
 		}
