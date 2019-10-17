@@ -28,7 +28,7 @@ class fpplot extends Component {
 				.curve(d3.curveMonotoneX);
 			const d = l(r)+"L"+r[r.length-1].x+","+r[0].y;
 			const color = this.props.model.colors[i];
-			return <path key={color} d={d.replace(/\.\d+/g, "")} fill={color}/>
+			return <path key={i} d={d.replace(/\.\d+/g, "")} fill={color}><title>{model.services[i].name.toUpperCase()}</title></path>
 		});
 
 		const delimeters = [];
