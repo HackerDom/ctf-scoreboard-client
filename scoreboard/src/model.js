@@ -16,7 +16,7 @@ export class GameModel {
 			"#D686BF", "#52E075", "#498ee9",
 			"#8BD7EB", "#AB7CF7",
 			"#d68018", "#E086D9", "#F37AA6", "#dae953",
-			"#9d3ef2", "#E3EB4E"
+			"#9d3ef2", "#E3EB4E", "#FFFFFF", "#68f243"
 		];
 		this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20" ];
 		if(this.servicesCount < 7)
