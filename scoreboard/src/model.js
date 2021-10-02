@@ -28,6 +28,7 @@ export class GameModel {
 		this.serviceIndex2attacksInRound = this.services.map((s) => 0);
 		this.teams = info.teams;
 		this.info = info;
+		document.title = info.contestName;
 		this.preloadLogos();
 		this.initAllRoundsSla(info);
 		this.one_service_width = 160;
