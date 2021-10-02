@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "d3": "^4.13.0",
+    "d3": "^7.1.0",
     "event-emitter-es6": "^1.1.5",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "3.2.0",
-    "underscore": "^1.8.3"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3",
+    "underscore": "^1.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
