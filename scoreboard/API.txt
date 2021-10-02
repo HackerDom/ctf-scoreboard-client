@@ -1,3 +1,5 @@
+// https://github.com/HackerDom/checksystem/wiki/API
+
 /api/info =>
     {
         "teams": {"team_id" (string): {"logo" (string): value (string, absolute path), "host": ip, "id": int, "name": string, "network": "ip and mask" }, ...}

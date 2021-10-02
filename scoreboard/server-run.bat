@@ -1,1 +1,1 @@
-python .\test-server\server.py -m 430
+python .\test-server\server.py --start_minute 430 --services 7 --teams 150

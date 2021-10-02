@@ -17,7 +17,7 @@ class Scoreboard extends Component {
 		this.compactScoreboardWidth = parseInt(getParameterByName("compactScoreboardWidth"), 10);
 		this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
 		this.autoOpenPeriod = parseInt(getParameterByName("autoOpen"), 10); // seconds
-		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000 / 3; // / 3 is hack, remove it!
+		this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
 		this.forSave = getParameterByName("forSave") !== null;
 		this.additionalStyle = getParameterByName("style");
 

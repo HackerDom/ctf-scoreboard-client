@@ -14,7 +14,8 @@ ROUNDS_PER_MINUTE = 1
 ROUND_TIME = 60/ROUNDS_PER_MINUTE
 GAME_LENGTH = 8
 ROUNDS_COUNT = 8*60*ROUNDS_PER_MINUTE
-service_names = ["atlablog", "weather", "cartographer", "sapmarine", "crash", "thebin", "theseven"]
+service_names = ["atlablog", "weather", "cartographer", "sapmarine", "crash", "thebin", "theseven", "s8", "s9", "s10",
+                 "s11", "s12", "s13", "s14", "s15", "s16", "s17", "s18", "s19", "20"]
 
 def team_(x): return str(x)
 def team_name(x): return '{}Переподвысмотрит'.format(x)
@@ -74,7 +75,7 @@ def info_page():
         'services': {service_(i + 1): service_names[i] for i in range(args.services)},
         'start': start,
         'end': start + GAME_LENGTH * 60 * 60,
-        #'roundsCount': ROUNDS_COUNT
+        'roundsCount': ROUNDS_COUNT
     }
 
 def create_first_scoreboard():
@@ -102,8 +103,14 @@ def create_first_scoreboard():
                     ]
                 }
                 for t in range(1, args.teams+1)
-            ]
-        }
+            ],
+            "services": {
+                service_(i + 1): {
+                    "name": service_names[i],
+                    "active": 1,
+                } for i in range(args.services)
+            },
+    }
 
 def to2Signs(n):
     return round(n, 2)
@@ -139,7 +146,13 @@ def create_scoreboard():
                 ]
             }
             for t in range(1, args.teams + 1)
-        ]
+        ],
+        "services": {
+            service_(i + 1): {
+                "name": service_names[i],
+                "active": 1,
+            } for i in range(args.services)
+        },
     })
     return scoreboards[-1]
 
