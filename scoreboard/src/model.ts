@@ -54,12 +54,18 @@ export class GameModel {
         this.services = GameModel.initServices(info);
         this.servicesCount = this.services.length;
         this.colors = [
-            "#76d661", "#86D9E0", "#7AA6F3", "#E9CC76",
-            "#AE86F2", "#EB8BD7", "#F7AB7C",
-            "#D686BF", "#52E075", "#498ee9",
-            "#8BD7EB", "#AB7CF7",
-            "#d68018", "#E086D9", "#F37AA6", "#dae953",
-            "#9d3ef2", "#E3EB4E", "#FFFFFF", "#68f243"
+            "#FF887B",
+            "#E1BB5A",
+            "#E9993C",
+            "#96C840",
+            "#46CD68",
+            "#4FD8C3",
+            "#51ADFF",
+            "#618AFF",
+            "#AB84FF",
+            "#C56FDA",
+            "#DE6388",
+            "#AA8164"
         ];
         this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20"];
         if (this.servicesCount < 7) {
