@@ -11,6 +11,7 @@ import {GameModel} from "./model";
 
 const controller = new Controller();
 const collapsedTeamWidth = 100;
+const maxFlagPrice = 30; // Extract to the checksystem API?
 
 
 interface ScoreboardProps {
@@ -263,7 +264,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                         }
                                                         <div className={"phase phase_" + serviceInfo.phase} title={"Base flag price"}>
                                                             { serviceInfo.flag_base_amount?.toFixed(2) }
-                                                            { serviceInfo.phase === "HEATING" && <span className="mdi mdi-arrow-up-bold" title="HEATING phase"/> }
+                                                            { serviceInfo.phase === "HEATING" && serviceInfo.flag_base_amount !== maxFlagPrice && <span className="mdi mdi-arrow-up-bold" title="HEATING phase"/> }
                                                             { serviceInfo.phase === "COOLING_DOWN" && <span className="mdi mdi-arrow-down-bold" title="COOLING DOWN phase"/> }
                                                         </div>
                                                     </React.Fragment>
