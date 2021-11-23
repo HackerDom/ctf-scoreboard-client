@@ -6,7 +6,7 @@ interface TimerState {
 
 interface TimerProps {
     seconds: number,
-    direction: "forward" | "backward"
+    direction: "forward" | "backward" | "none"
     title: string
 }
 

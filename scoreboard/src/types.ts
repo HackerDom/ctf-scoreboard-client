@@ -37,6 +37,7 @@ export type ScoreboardEvent = { type: typeof ReloadEventName }
 
 export interface StateEventData {
     round: number; // current round
+    game_status: number; // -1 — game finished, 0 — game not started, or is in time-break, 1 - go-go-go!
     scoreboard: TeamState[]; // sorted array of teams in scoreboard
     services: { [serviceId: string]: IsServiceActive } // serviceId is service active for current round
 }

@@ -8,6 +8,7 @@ import AttacksPlot from './attacksplot';
 import {getParameterByName} from "./utils"
 import Timer from "./timer"
 import {GameModel} from "./model";
+import {StateEventData} from "./types";
 
 const controller = new Controller();
 const collapsedTeamWidth = 100;
@@ -236,6 +237,10 @@ class Scoreboard extends Component<ScoreboardProps> {
                                         let serviceInfo = this.model!.service_infos[serviceId];
                                         let serviceDisableInterval = serviceInfo.disable_interval;
                                         let servicePhase = serviceInfo.phase?.replace("_", " ")
+                                        let isGameActive = true;
+                                        if (this.model!.scoreboard !== null && (this.model!.scoreboard! as StateEventData).game_status !== undefined) {
+                                            isGameActive = (this.model!.scoreboard! as StateEventData).game_status === 1;
+                                        }
 
                                         return (
                                             <div key={service.id} className="service-header">
@@ -252,14 +257,14 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                         {
                                                             serviceInfo.phase !== "DYING" &&
                                                             <Timer seconds={serviceInfo.phase_duration!}
-                                                                   direction="forward"
+                                                                   direction={isGameActive ? "forward" : "none"}
                                                                    title={"Time from the beginning of the " + servicePhase + " phase"}
                                                             />
                                                         }
                                                         {
                                                             serviceInfo.phase === "DYING" &&
                                                             <Timer seconds={serviceDisableInterval ?? 0}
-                                                                   direction="backward"
+                                                                   direction={isGameActive ? "backward" : "none"}
                                                                    title="This service will disappear soon"
                                                             />
                                                         }
