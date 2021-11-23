@@ -14,13 +14,13 @@ const status2Name = {
     110: "checker error",
     111: "service disabled"
 };
-const status2Color = {
-    101: "#84E668",
-    102: "#ffef65",
-    103: "#f9a963",
-    104: "#FF5656",
-    110: "#FFFFFF",
-    111: "#FFFFFF",
+const status2Class = {
+    101: "up",
+    102: "corrupt",
+    103: "mumble",
+    104: "down",
+    110: "checker_error",
+    111: "service_disabled"
 };
 
 interface ServiceblockProps {
@@ -54,7 +54,7 @@ class Serviceblock extends Component<ServiceblockProps> {
                 <Plusminusline plus={service.flags} minus={service.sflags} maxsum={max_flags_sum}
                                className="flags_line"/>
                 <div className="sla">
-                    <div className={"slapercent"} style={{"color": status2Color[service.status]}}>
+                    <div className={"slapercent " + status2Class[service.status]}>
                         {Math.round(service.sla)}{Math.round(service.sla) < 100 ? "%" : ""}{service.status === 101
                         ? <span className="mdi mdi-arrow-up-bold"/>
                         : <span className="mdi mdi-arrow-down-bold"/>}
@@ -62,8 +62,9 @@ class Serviceblock extends Component<ServiceblockProps> {
                     <Slaline className="slalineblock" periods={sla_periods} periodLength={model.slaPeriodLength}
                              width={model.slalineWidth}/>
                     <div className="status">
-                        <div className={(service.status === 101 ? " hidden" : "")}
-                             style={{"color": status2Color[service.status]}}>{status2Name[service.status]}</div>
+                        <div className={(service.status === 101 ? " hidden " : "" + status2Class[service.status])}>
+                            {status2Name[service.status]}
+                        </div>
                     </div>
                     <div className="maxSla">max {maxSla}%</div>
                 </div>

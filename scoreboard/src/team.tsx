@@ -68,6 +68,7 @@ class Team extends Component<TeamProps, TeamComponentState> {
         const team = this.props.team;
         const suffix = team.d ? (team.d > 0 ? "(+" + team.d + ")" : "(" + team.d + ")") : '';
         const host = this.props.model.getHost(team.team_id);
+        const tags = this.props.model.getTags(team.team_id);
         const logo = this.props.model.getLogo(team.team_id);
         const max_score = this.props.model.max_score;
         const width = this.props.model.team_width + this.props.model.one_service_width * this.props.servicesCount;
@@ -87,6 +88,11 @@ class Team extends Component<TeamProps, TeamComponentState> {
                             <div className="team_logo team_border"><img className="img" src={logo}/></div>
                             <div className="team_info team_border">
                                 <div className="team_name" title={team.name}>{team.name}</div>
+                                <div className="tags">
+                                    {tags.map((tag, _) => {
+                                        return <span className={"tag tag_" + tag} key={tag}>{tag}</span>
+                                    })}
+                                </div>
                                 <div className="ip">{host}</div>
                                 <div className="score">
                                     <span>{addSpacesToNumber(GameModel.GetScore(team.score))} </span>

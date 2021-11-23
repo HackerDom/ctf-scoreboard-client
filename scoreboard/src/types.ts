@@ -16,6 +16,7 @@ export interface TeamInfo {
     network: string; // cidr, network for team
     logo?: string; // optional, URL for team logo
     country?: string; // optional, country of team
+    tags?: string[]; // optional, list of tags
 }
 
 // /api/events

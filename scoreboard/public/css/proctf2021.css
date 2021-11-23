@@ -1,0 +1,62 @@
+@font-face{
+    font-family: 'JetBrains Mono';
+    src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Regular.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/ttf/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: "JetBrains Mono", "Roboto", sans-serif
+}
+
+body { background: #000; }
+
+:nth-child(odd) > .team {
+    background: none;
+}
+:nth-child(even) > .team {
+    background: none;
+}
+
+.slalineblock .rect-green {
+    fill:rgba(255,255,255,0.3);
+}
+#header-container {
+    background: #16232C;
+}
+.team_selected, .team:hover {
+    background-color: #16232C;
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 5%);
+}
+.team_name, .score { color: #fff }
+#header .min {
+    color: rgba(255,255,255,0.3);
+}
+.team_plots .counts_title {
+    color: rgba(255,255,255,0.5);
+}
+.team_selected .slaline {
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.attacksplot path { stroke: rgba(255,255,255,0.3)}
+
+.team_plots .flags .sflags,
+.red,
+.background-red,
+.rect-red.colored {
+    color: #FF5A49;
+}
+.green,
+.background-green,
+.rect-green.colored {
+    color: #78BF2B;
+}
+
+.slapercent.ok { color: #78BF2B}
+.slapercent.corrupt { color: #ffef65}
+.slapercent.mumble { color: #f9a963}
+.slapercent.down { color: #FF5A49}
+.slapercent.checker_error { color: #FFFFFF}
+.slapercent.service_disabled { color: #FFFFFF}

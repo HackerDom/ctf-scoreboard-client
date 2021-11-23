@@ -232,6 +232,35 @@ body {
 	box-sizing: border-box;
 }
 
+.team_info .ip {
+	display: inline-block;
+}
+
+.team_info .tags {
+	display: inline-block;
+	font-size: 10pt;
+	margin-bottom: 5px;
+}
+
+.team_info .tags .tag {
+	border-radius: 3px;
+	color: white;
+	padding: 2px 5px;
+	margin-right: 8px;
+}
+
+.team_info .tags .tag.tag_PRO {
+	background-color: #256725;
+}
+
+.team_info .tags .tag.tag_EDU {
+	background-color: #31317b;
+}
+
+.team_info .tags .tag.tag_ONLINE {
+	background-color: #6f6f6f;
+}
+
 .team_service {
 	width: 160px;
 	height: 100%;
@@ -252,7 +281,7 @@ body {
 
 .ip {
 	color: white;
-	opacity: 0.6;
+	opacity: 0.8;
 	font-size: 11px;
 	margin-top: -2px;
 }

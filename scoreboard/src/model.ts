@@ -139,8 +139,12 @@ export class GameModel {
         return services;
     }
 
+    getTags(team_id: number): string[] {
+        return this.teams[team_id].tags ?? [];
+    }
+
     getHost(team_id: number) {
-        return this.teams[team_id].host;
+        return this.teams[team_id].network;
     }
 
     getLogo(team_id: number) {
