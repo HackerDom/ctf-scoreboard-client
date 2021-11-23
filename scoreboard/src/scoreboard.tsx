@@ -231,7 +231,9 @@ class Scoreboard extends Component<ScoreboardProps> {
                                         if (servicePercentile < this.servicesFrom || servicePercentile >= this.servicesTo)
                                             return null;
 
-                                        let service_disable_interval = this.model!.service_disable_intervals[parseInt(service.id, 10)];
+                                        let serviceId = parseInt(service.id, 10);
+                                        let serviceInfo = this.model!.service_infos[serviceId];
+                                        let serviceDisableInterval = serviceInfo.disable_interval;
 
                                         return (
                                             <div key={service.id} className="service-header">
@@ -240,11 +242,29 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                              roundsCount={_this.model!.roundsCount}/>
                                                 <div className="service-name"
                                                      style={{color: this.model!.colors[i]}}>{service.name}</div>
-                                                <div className="attacks">{this.model!.serviceIndex2attacksInRound[i]}</div>
+                                                <div className="attacks" title="Current amount of stolen flags on the last round">{this.model!.serviceIndex2attacksInRound[i]}</div>
                                                 <div className="min">/round</div>
                                                 {
-                                                    service_disable_interval != null &&
-                                                    <Timer seconds={service_disable_interval}/>
+                                                    serviceInfo.phase &&
+                                                    <React.Fragment>
+                                                        <div className={"phase phase_" + serviceInfo.phase} title="Current phase of the service">
+                                                            { serviceInfo.phase }
+                                                        </div>
+                                                        {
+                                                            serviceInfo.phase !== "DYING" &&
+                                                            <Timer seconds={serviceInfo.phase_duration!}
+                                                                   direction="forward"
+                                                                   title="Time from the beginning of the phase"
+                                                                   color="green"/>
+                                                        }
+                                                        {
+                                                            serviceInfo.phase === "DYING" &&
+                                                            <Timer seconds={serviceDisableInterval ?? 0}
+                                                                   direction="backward"
+                                                                   title="This service will disappear soon"
+                                                                   color="red"/>
+                                                        }
+                                                    </React.Fragment>
                                                 }
                                             </div>
                                         )

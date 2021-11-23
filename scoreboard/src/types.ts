@@ -73,6 +73,9 @@ export interface IsServiceActive {
     name: string; // service name
     active: 0 | 1; // service status for current round
     disable_interval: number | null;
+    flag_base_amount: number | null;
+    phase: string | null;
+    phase_duration: number | null
 }
 
 export interface AttackEventData {

@@ -6,6 +6,9 @@ interface TimerState {
 
 interface TimerProps {
     seconds: number,
+    direction: "forward" | "backward"
+    color: "green" | "red"
+    title: string
 }
 
 class Timer extends React.Component<TimerProps, TimerState> {
@@ -18,9 +21,14 @@ class Timer extends React.Component<TimerProps, TimerState> {
         };
         const start = Date.now() / 1000;
         this.timer = setInterval(() => this.setState(s => {
-            return {
-                seconds: Math.max(0, props.seconds - (Date.now() / 1000 - start))
-            }
+            if (this.props.direction === "backward")
+                return {
+                    seconds: Math.max(0, props.seconds - (Date.now() / 1000 - start))
+                }
+            if (this.props.direction === "forward")
+                return {
+                    seconds: props.seconds + (Date.now() / 1000 - start)
+                }
         }), 1000);
     }
 
@@ -30,15 +38,15 @@ class Timer extends React.Component<TimerProps, TimerState> {
         seconds = seconds % 60;
         const hours = Math.floor(minutes / 60);
         minutes = minutes % 60;
-        return <div className="timer" title="This service will disappear soon">
-            <span className="mdi mdi-timer green"/>&nbsp;
+        return <div className="timer" title={this.props.title}>
+            <span className={"mdi mdi-timer " + this.props.color}/>&nbsp;
             { hours }:{ Timer.pad(minutes, 2) }:{ Timer.pad(seconds, 2) }
         </div>
     }
 
     static pad(num: number, size: number) {
         const s = "000000000" + num;
-        return s.substr(s.length-size);
+        return s.substring(s.length-size);
     }
 }
 

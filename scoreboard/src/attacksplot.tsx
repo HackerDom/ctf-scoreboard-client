@@ -38,7 +38,7 @@ class attacksplot extends Component<AttacksplotProps> {
             circle = <circle cx={points[points.length - 1][0] - 0.5} cy={points[points.length - 1][1] - 0.5} r={1.5}
                              fill={color}/>;
         }
-        return (<div className={"attacksplot"}>
+        return (<div className={"attacksplot"} title="Attacks amount per round">
             <svg width={width + 25} height={plotHeight + 4}>
                 {path}
                 {circle}

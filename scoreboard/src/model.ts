@@ -4,7 +4,7 @@ import {
     AllRoundsSla, DataForAttacksGraph, DataForAttacksGraphForRound,
     HistoricalRoundState,
     HistoricalScoreboard, HistoricalTeamState,
-    Info, Scoreboard, SelectedTeam,
+    Info, IsServiceActive, Scoreboard, SelectedTeam,
     ServiceIdAndName,
     ServicesFlagsForGraphs,
     StateEventData,
@@ -41,7 +41,7 @@ export class GameModel {
     previousScoreboard: StateEventData | HistoricalRoundState | null;
     active_services: number[];
     selectedTeam: SelectedTeam | null;
-    service_disable_intervals: { [id: number]: number | null };
+    service_infos: { [id: number]: IsServiceActive };
 
     constructor(info: Info) {
         this.scoreboard = null;
@@ -92,7 +92,7 @@ export class GameModel {
         this.slaPeriodLength = Math.ceil(this.roundsCount / this.slalineWidth);
         this.slalineWidth = Math.ceil(this.roundsCount / this.slaPeriodLength);
         this.active_services = this.services.map((_service, index) => index);
-        this.service_disable_intervals = {};
+        this.service_infos = {}
     }
 
     private static preloadLogos(teams: { [teamId: string]: TeamInfo }): HTMLImageElement[] {
@@ -191,7 +191,7 @@ export class GameModel {
         if (scoreboard == null)
             return;
         this.scoreboard = scoreboard;
-        this.service_disable_intervals = {};
+        this.service_infos = {}
 
         let showAll = getParameterByName("showAll") !== null;
 
@@ -202,7 +202,7 @@ export class GameModel {
             let service = this.scoreboard.services[service_id];
             if (service.active || showAll)
                 active_services.push(parseInt(service_id));
-            this.service_disable_intervals[parseInt(service_id)] = service.disable_interval;
+            this.service_infos[parseInt(service_id)] = service;
         }
         this.active_services = active_services;
 

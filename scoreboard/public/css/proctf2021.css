@@ -54,9 +54,17 @@ body { background: #000; }
     color: #78BF2B;
 }
 
-.slapercent.ok { color: #78BF2B}
+.slapercent.up { color: #78BF2B}
 .slapercent.corrupt { color: #ffef65}
 .slapercent.mumble { color: #f9a963}
 .slapercent.down { color: #FF5A49}
 .slapercent.checker_error { color: #FFFFFF}
 .slapercent.service_disabled { color: #FFFFFF}
+
+
+.status .up { color: #78BF2B}
+.status .corrupt { color: #ffef65}
+.status .mumble { color: #f9a963}
+.status .down { color: #FF5A49}
+.status .checker_error { color: #FFFFFF}
+.status .service_disabled { color: #FFFFFF}
