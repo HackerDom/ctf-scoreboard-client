@@ -7,7 +7,6 @@ interface TimerState {
 interface TimerProps {
     seconds: number,
     direction: "forward" | "backward"
-    color: "green" | "red"
     title: string
 }
 
@@ -39,7 +38,6 @@ class Timer extends React.Component<TimerProps, TimerState> {
         const hours = Math.floor(minutes / 60);
         minutes = minutes % 60;
         return <div className="timer" title={this.props.title}>
-            <span className={"mdi mdi-timer " + this.props.color}/>&nbsp;
             { hours }:{ Timer.pad(minutes, 2) }:{ Timer.pad(seconds, 2) }
         </div>
     }

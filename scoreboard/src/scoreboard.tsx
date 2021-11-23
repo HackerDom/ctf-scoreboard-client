@@ -247,23 +247,25 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                 {
                                                     serviceInfo.phase &&
                                                     <React.Fragment>
-                                                        <div className={"phase phase_" + serviceInfo.phase} title="Current phase of the service">
-                                                            { serviceInfo.phase }
-                                                        </div>
                                                         {
                                                             serviceInfo.phase !== "DYING" &&
                                                             <Timer seconds={serviceInfo.phase_duration!}
                                                                    direction="forward"
                                                                    title="Time from the beginning of the phase"
-                                                                   color="green"/>
+                                                            />
                                                         }
                                                         {
                                                             serviceInfo.phase === "DYING" &&
                                                             <Timer seconds={serviceDisableInterval ?? 0}
                                                                    direction="backward"
                                                                    title="This service will disappear soon"
-                                                                   color="red"/>
+                                                            />
                                                         }
+                                                        <div className={"phase phase_" + serviceInfo.phase} title={"Base flag price"}>
+                                                            { serviceInfo.flag_base_amount?.toFixed(2) }
+                                                            { serviceInfo.phase === "HEATING" && <span className="mdi mdi-arrow-up-bold" title="HEATING phase"/> }
+                                                            { serviceInfo.phase === "COOLING_DOWN" && <span className="mdi mdi-arrow-down-bold" title="COOLING DOWN phase"/> }
+                                                        </div>
                                                     </React.Fragment>
                                                 }
                                             </div>

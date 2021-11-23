@@ -100,8 +100,20 @@ body {
 	padding-top: 16px;
 }
 
-.service-header .phase {
+.service-header .timer {
 	margin-top: 10px;
+}
+
+.service-header .phase_HEATING {
+	color: #78BF2B;
+}
+
+.service-header .phase_COOLING_DOWN {
+	color: #f9a963;
+}
+
+.service-header .phase_DYING {
+	color: #FF5A49;
 }
 
 #attacks-header {
