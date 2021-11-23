@@ -235,6 +235,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                         let serviceId = parseInt(service.id, 10);
                                         let serviceInfo = this.model!.service_infos[serviceId];
                                         let serviceDisableInterval = serviceInfo.disable_interval;
+                                        let servicePhase = serviceInfo.phase?.replace("_", " ")
 
                                         return (
                                             <div key={service.id} className="service-header">
@@ -252,7 +253,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                             serviceInfo.phase !== "DYING" &&
                                                             <Timer seconds={serviceInfo.phase_duration!}
                                                                    direction="forward"
-                                                                   title="Time from the beginning of the phase"
+                                                                   title={"Time from the beginning of the " + servicePhase + " phase"}
                                                             />
                                                         }
                                                         {
