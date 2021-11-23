@@ -84,9 +84,9 @@ class Fbarchart extends Component<FbarchartProps> {
 				<svg width={width} height={svgheight + 10}>
 					<defs>
 						<linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
-							<stop offset="0%" stopColor="#FF5656"/>
-							<stop offset="10%" stopColor="#FF5656"/>
-							<stop offset="100%" stopColor="#FF5656" stopOpacity="0"/>
+							<stop offset="0%" stopColor="#5b773d"/>
+							<stop offset="10%" stopColor="#5b773d"/>
+							<stop offset="100%" stopColor="#5b773d" stopOpacity="0"/>
 						</linearGradient>
 					</defs>
 					<rect fill={"url(#" + gradientId + ")"} fillOpacity="0.4" x="0" y={plusHeight + lineBetweenBarsHeight} width={width} height={svgheight - plusHeight - lineBetweenBarsHeight + 10}/>

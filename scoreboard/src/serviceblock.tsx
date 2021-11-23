@@ -48,13 +48,13 @@ class Serviceblock extends Component<ServiceblockProps> {
                 <div className="fp">{addSpacesToNumber(Number(service.fp.toFixed(2)))}</div>
                 <Numberline color={color} percent={service.fp / max_service_score * 100} className="service_fp_line"/>
                 <div className="flags">
-                    <span className="mdi mdi-flag"> {service.flags}{service.sflags > 0 ?
-                        <span> / <span className="sflags">-{service.sflags}</span></span> : null}</span>
+                    <span className="mdi mdi-flag"> <span title={"Flags amount stolen by " + team.name}>{service.flags}</span>{service.sflags > 0 ?
+                        <span> / <span className="sflags" title={"Flags amount stolen from " + team.name}>-{service.sflags}</span></span> : null}</span>
                 </div>
                 <Plusminusline plus={service.flags} minus={service.sflags} maxsum={max_flags_sum}
                                className="flags_line"/>
                 <div className="sla">
-                    <div className={"slapercent " + status2Class[service.status]}>
+                    <div className={"slapercent " + status2Class[service.status]} title="SLA">
                         {Math.round(service.sla)}{Math.round(service.sla) < 100 ? "%" : ""}{service.status === 101
                         ? <span className="mdi mdi-arrow-up-bold"/>
                         : <span className="mdi mdi-arrow-down-bold"/>}

@@ -495,7 +495,7 @@ body {
 	top: 13px;
 	left: 55px;
 	opacity: 0;
-	color: black;
+	color: #b5b3b3;
 	font-size: 14px;
 	transition: top 0.2s, opacity 0.2s;
 }
