@@ -138,6 +138,14 @@ class Scoreboard extends Component<ScoreboardProps> {
         const _this = this;
 
         function resize() {
+            let html = document.getElementsByTagName("html")[0];
+            if (window.innerWidth === window.screen.width && window.innerHeight === window.screen.height) {
+                // Full screen, disable vertical scroll
+                html.className = "fullscreen";
+            } else {
+                html.className = "";
+            }
+
             const container = document.getElementById('container');
             if (window.outerWidth < 150)
                 return;

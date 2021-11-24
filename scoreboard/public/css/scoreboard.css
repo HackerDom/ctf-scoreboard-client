@@ -1,3 +1,7 @@
+html.fullscreen::-webkit-scrollbar {
+	display: none;
+}
+
 body {
 	background: #392146;
 	margin: 0;
