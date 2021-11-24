@@ -194,16 +194,13 @@ class Scoreboard extends Component<ScoreboardProps> {
     getBreaksTime(start: Date, end: Date, breaks: Date[][]) {
         let result = 0;
         breaks.forEach((b, _) => {
-            console.log(b);
             let breakStart = b[0];
             let breakEnd = b[1];
             let commonStart = Math.max(breakStart.getTime(), start.getTime());
             let commonEnd = Math.min(breakEnd.getTime(), end.getTime());
-            console.log("common", commonStart, commonEnd);
             if (commonStart <= commonEnd) {
                 result += (commonEnd - commonStart) / 1000; // divide because getTime() returns milliseconds
             }
-            console.log("result", result)
         });
         return result;
     }
@@ -270,7 +267,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                         let phaseDuration = serviceInfo.phase_duration;
                                         if (phaseDuration !== null) {
                                             // The checksystem has a bug: it includes break time into phase_duration, so
-                                            // we have to substitute it.
+                                            // we have to subtract them.
                                             phaseDuration -= this.getBreaksTime(new Date(Date.now() - phaseDuration * 1000), new Date(), [
                                                 [
                                                     new Date(Date.UTC(2021, 10, 24, 14, 30, 0)),

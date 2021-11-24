@@ -31,6 +31,10 @@ class Timer extends React.Component<TimerProps, TimerState> {
         }), 1000);
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
     render() {
         let seconds = Math.floor(this.state.seconds);
         let minutes = Math.floor(seconds / 60);
