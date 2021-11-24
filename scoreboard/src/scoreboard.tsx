@@ -191,6 +191,23 @@ class Scoreboard extends Component<ScoreboardProps> {
         );
     }
 
+    getBreaksTime(start: Date, end: Date, breaks: Date[][]) {
+        let result = 0;
+        breaks.forEach((b, _) => {
+            console.log(b);
+            let breakStart = b[0];
+            let breakEnd = b[1];
+            let commonStart = Math.max(breakStart.getTime(), start.getTime());
+            let commonEnd = Math.min(breakEnd.getTime(), end.getTime());
+            console.log("common", commonStart, commonEnd);
+            if (commonStart <= commonEnd) {
+                result += (commonEnd - commonStart) / 1000; // divide because getTime() returns milliseconds
+            }
+            console.log("result", result)
+        });
+        return result;
+    }
+
     render() {
         if (this.model == null || this.model.scoreboard == null)
             return null;
@@ -248,6 +265,22 @@ class Scoreboard extends Component<ScoreboardProps> {
                                         let isGameActive = true;
                                         if (this.model!.scoreboard !== null && (this.model!.scoreboard! as StateEventData).game_status !== undefined) {
                                             isGameActive = (this.model!.scoreboard! as StateEventData).game_status === 1;
+                                        }
+
+                                        let phaseDuration = serviceInfo.phase_duration;
+                                        if (phaseDuration !== null) {
+                                            // The checksystem has a bug: it includes break time into phase_duration, so
+                                            // we have to substitute it.
+                                            phaseDuration -= this.getBreaksTime(new Date(Date.now() - phaseDuration * 1000), new Date(), [
+                                                [
+                                                    new Date(Date.UTC(2021, 10, 24, 14, 30, 0)),
+                                                    new Date(Date.UTC(2021, 10, 24, 15, 30, 0)),
+                                                ],
+                                                [
+                                                    new Date(Date.UTC(2021, 10, 25, 3, 0, 0)),
+                                                    new Date(Date.UTC(2021, 10, 25, 5, 0, 0)),
+                                                ]
+                                            ]);
                                         }
 
                                         return (
