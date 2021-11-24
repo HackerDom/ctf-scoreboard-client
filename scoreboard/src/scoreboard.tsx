@@ -199,7 +199,7 @@ class Scoreboard extends Component<ScoreboardProps> {
             let commonStart = Math.max(breakStart.getTime(), start.getTime());
             let commonEnd = Math.min(breakEnd.getTime(), end.getTime());
             if (commonStart <= commonEnd) {
-                result += (commonEnd - commonStart) / 1000; // divide because getTime() returns milliseconds
+                result += (commonEnd - commonStart) / 1000 - 1; // divide because getTime() returns milliseconds
             }
         });
         return result;
