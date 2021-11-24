@@ -136,7 +136,7 @@ class Team extends Component<TeamProps, TeamComponentState> {
                                         <span>{Math.round(meanSLA)}%</span>
                                     </div>
                                     <div className="score_block">
-                                        <div className="counts_title">FLAGPOINTS</div>
+                                        <div className="counts_title">SCORE</div>
                                         <span>{addSpacesToNumber(GameModel.GetScore(team.score))} </span>
                                         <Numberline color="white"
                                                     percent={GameModel.GetScore(team.score) / max_score * 100}
