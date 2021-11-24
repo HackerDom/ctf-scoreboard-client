@@ -263,8 +263,8 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                     serviceInfo.phase &&
                                                     <React.Fragment>
                                                         {
-                                                            serviceInfo.phase !== "DYING" &&
-                                                            <Timer seconds={serviceInfo.phase_duration!}
+                                                            serviceInfo.phase !== "DYING" && serviceInfo.phase !== "REMOVED" &&
+                                                            <Timer seconds={phaseDuration!}
                                                                    direction={isGameActive ? "forward" : "none"}
                                                                    title={"Time from the beginning of the " + servicePhase + " phase"}
                                                             />
