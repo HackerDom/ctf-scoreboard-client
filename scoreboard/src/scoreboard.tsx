@@ -264,20 +264,26 @@ class Scoreboard extends Component<ScoreboardProps> {
                                             isGameActive = (this.model!.scoreboard! as StateEventData).game_status === 1;
                                         }
 
+                                        let game_breaks = [
+                                            [
+                                                new Date(Date.UTC(2021, 10, 24, 14, 30, 0)),
+                                                new Date(Date.UTC(2021, 10, 24, 15, 30, 0)),
+                                            ],
+                                            [
+                                                new Date(Date.UTC(2021, 10, 25, 3, 0, 0)),
+                                                new Date(Date.UTC(2021, 10, 25, 5, 0, 0)),
+                                            ]
+                                        ];
+
                                         let phaseDuration = serviceInfo.phase_duration;
                                         if (phaseDuration !== null) {
                                             // The checksystem has a bug: it includes break time into phase_duration, so
                                             // we have to subtract them.
-                                            phaseDuration -= this.getBreaksTime(new Date(Date.now() - phaseDuration * 1000), new Date(), [
-                                                [
-                                                    new Date(Date.UTC(2021, 10, 24, 14, 30, 0)),
-                                                    new Date(Date.UTC(2021, 10, 24, 15, 30, 0)),
-                                                ],
-                                                [
-                                                    new Date(Date.UTC(2021, 10, 25, 3, 0, 0)),
-                                                    new Date(Date.UTC(2021, 10, 25, 5, 0, 0)),
-                                                ]
-                                            ]);
+                                            let breaksTime = this.getBreaksTime(new Date(Date.now() - phaseDuration * 1000), new Date(), game_breaks);
+                                            phaseDuration -= breaksTime;
+                                            if (serviceDisableInterval !== null) {
+                                                serviceDisableInterval += breaksTime
+                                            }
                                         }
 
                                         return (
