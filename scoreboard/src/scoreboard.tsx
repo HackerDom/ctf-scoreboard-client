@@ -279,12 +279,11 @@ class Scoreboard extends Component<ScoreboardProps> {
                                         if (phaseDuration !== null) {
                                             // The checksystem has a bug: it includes break time into phase_duration, so
                                             // we have to subtract them.
-                                            let breaksTime = this.getBreaksTime(new Date(Date.now() - phaseDuration * 1000), new Date(), game_breaks);
-                                            phaseDuration -= breaksTime;
-                                            //// Bug exists. Should be uncommented, but in 2021 we've fixed it in the database on the backend.
-                                            // if (serviceDisableInterval !== null) {
-                                            //     serviceDisableInterval += breaksTime
-                                            // }
+                                            phaseDuration -= this.getBreaksTime(new Date(Date.now() - phaseDuration * 1000), new Date(), game_breaks);
+                                            //// Bug exists at the backend also. In 2021 we've fixed it in the database on the backend.
+                                            if (serviceDisableInterval !== null) {
+                                                serviceDisableInterval -= this.getBreaksTime(new Date(), new Date(Date.now() + phaseDuration * 1000), game_breaks) + 1
+                                            }
                                         }
 
                                         return (
