@@ -22,6 +22,7 @@ class Scoreboard extends Component<ScoreboardProps> {
     // query params
     compactScoreboardWidth: number;
     autoOpenPeriod: number;
+    autoScrollPeriod: number;
     forSave: boolean;
     additionalStyle: string;
     servicesFrom: number;
@@ -42,6 +43,7 @@ class Scoreboard extends Component<ScoreboardProps> {
         this.compactScoreboardWidth = isNaN(this.compactScoreboardWidth) ? 0 : this.compactScoreboardWidth;
         this.autoOpenPeriod = parseInt(getParameterByName("autoOpen") ?? '', 10); // seconds
         this.autoOpenPeriod = isNaN(this.autoOpenPeriod) ? 0 : this.autoOpenPeriod * 1000;
+        this.autoScrollPeriod = parseInt(getParameterByName("autoScroll") ?? '0', 10) * 1000; // seconds
         this.forSave = getParameterByName("forSave") !== null;
         this.additionalStyle = getParameterByName("style") ?? '';
 
@@ -101,17 +103,22 @@ class Scoreboard extends Component<ScoreboardProps> {
             }
         });
         if (this.autoOpenPeriod !== 0) {
-            this.autoOpenScript();
+            this.autoOpenScript(this.autoOpenPeriod);
+        }
+        if (this.autoOpenPeriod === 0 && this.autoScrollPeriod !== 0) {
+            this.autoOpenScript(this.autoScrollPeriod, false);
         }
     }
 
-    autoOpenScript() {
+    autoOpenScript(period: number, open: boolean = true) {
         const _this = this;
         setInterval(() => {
             if (_this.teamRefs !== undefined) {
                 const ref = _this.teamRefs[_this.nextTeamToOpen];
                 if (ref != null) {
-                    ref.handleClick();
+                    if (open) {
+                        ref.handleClick();
+                    }
                     window.scroll({
                         top: collapsedTeamWidth * this.zoom * _this.nextTeamToOpen,
                         left: 0,
@@ -122,7 +129,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                 if (_this.nextTeamToOpen >= 10)
                     _this.nextTeamToOpen = 0;
             }
-        }, this.autoOpenPeriod);
+        }, period);
     }
 
     prepareForSave() {
