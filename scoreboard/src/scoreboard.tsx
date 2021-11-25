@@ -281,9 +281,10 @@ class Scoreboard extends Component<ScoreboardProps> {
                                             // we have to subtract them.
                                             let breaksTime = this.getBreaksTime(new Date(Date.now() - phaseDuration * 1000), new Date(), game_breaks);
                                             phaseDuration -= breaksTime;
-                                            if (serviceDisableInterval !== null) {
-                                                serviceDisableInterval += breaksTime
-                                            }
+                                            //// Bug exists. Should be uncommented, but in 2021 we've fixed it in the database on the backend.
+                                            // if (serviceDisableInterval !== null) {
+                                            //     serviceDisableInterval += breaksTime
+                                            // }
                                         }
 
                                         return (
