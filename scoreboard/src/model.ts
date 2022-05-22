@@ -56,18 +56,18 @@ export class GameModel {
         this.colors = [
             "#FF887B",
             "#E1BB5A",
-            "#E9993C",
+            // "#E9993C",
             "#96C840",
-            "#46CD68",
+            // "#46CD68",
             "#4FD8C3",
-            "#51ADFF",
+            // "#51ADFF",
             "#618AFF",
-            "#AB84FF",
+            // "#AB84FF",
             "#C56FDA",
             "#DE6388",
             "#AA8164"
         ];
-        this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20"];
+        this.fillClasses = ["c1", "c2", /*"c3",*/ "c4", /*"c5",*/ "c6", /*"c7",*/ "c8", /*"c9",*/ "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20"];
         if (this.servicesCount < 7) {
             this.colors.shift();
             this.fillClasses.shift();
