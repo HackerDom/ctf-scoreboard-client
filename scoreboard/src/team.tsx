@@ -99,8 +99,8 @@ class Team extends Component<TeamProps, TeamComponentState> {
                                     {team.scoreDelta === undefined || team.scoreDelta === 0
                                         ? null
                                         : (team.scoreDelta > 0
-                                                ? <span className="mdi mdi-arrow-top-right green"></span>
-                                                : <span className="mdi mdi-arrow-bottom-right red"></span>
+                                                ? <span className="mdi mdi-arrow-top-right green"/>
+                                                : <span className="mdi mdi-arrow-bottom-right red"/>
                                         )
                                     }
                                 </div>
@@ -125,11 +125,9 @@ class Team extends Component<TeamProps, TeamComponentState> {
                         </div>
                         {graphData != null && graphData.length > 0 ?
                             <div className="team_plots" style={{marginLeft: 154 + "px"}}>
-                                <Flagsgraph graphData={graphData} model={this.props.model}
-                                            width={width - plotsLeftMargin}></Flagsgraph>
-                                <Fbarchart graphData={graphData} model={this.props.model}
-                                           width={width - plotsLeftMargin}></Fbarchart>
-                                <Plotsprogress round={round} model={this.props.model}></Plotsprogress>
+                                <Flagsgraph graphData={graphData} model={this.props.model} width={width - plotsLeftMargin}/>
+                                <Fbarchart graphData={graphData} model={this.props.model} width={width - plotsLeftMargin}/>
+                                <Plotsprogress round={round} model={this.props.model}/>
                                 <div className="counts">
                                     <div className="sla_block">
                                         <div className="counts_title">SLA</div>

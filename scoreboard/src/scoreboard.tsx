@@ -266,11 +266,14 @@ class Scoreboard extends Component<ScoreboardProps> {
                                         let serviceInfo = this.model!.service_infos[serviceId];
                                         let serviceDisableInterval = serviceInfo.disable_interval;
                                         let servicePhase = serviceInfo.phase?.replace("_", " ")
+                                        if (this.model)
+                                            this.model.services[i].phase = serviceInfo.phase ?? "";
                                         let isGameActive = true;
                                         if (this.model!.scoreboard !== null && (this.model!.scoreboard! as StateEventData).game_status !== undefined) {
                                             isGameActive = (this.model!.scoreboard! as StateEventData).game_status === 1;
                                         }
 
+                                        // Oh my god!
                                         let game_breaks = [
                                             [
                                                 new Date(Date.UTC(2021, 10, 24, 14, 30, 0)),
@@ -306,7 +309,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                     serviceInfo.phase &&
                                                     <React.Fragment>
                                                         {
-                                                            serviceInfo.phase !== "DYING" && serviceInfo.phase !== "REMOVED" &&
+                                                            serviceInfo.phase !== "DYING" && serviceInfo.phase !== "REMOVED" && serviceInfo.phase != "NOT_RELEASED" &&
                                                             <Timer seconds={phaseDuration!}
                                                                    direction={isGameActive ? "forward" : "none"}
                                                                    title={"Time from the beginning of the " + servicePhase + " phase"}
@@ -319,11 +322,14 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                                    title="This service will disappear soon"
                                                             />
                                                         }
-                                                        <div className={"phase phase_" + serviceInfo.phase} title={"Base flag price"}>
-                                                            { serviceInfo.flag_base_amount?.toFixed(2) }
-                                                            { serviceInfo.phase === "HEATING" && serviceInfo.flag_base_amount !== maxFlagPrice && <span className="mdi mdi-arrow-up-bold" title="HEATING phase"/> }
-                                                            { serviceInfo.phase === "COOLING_DOWN" && <span className="mdi mdi-arrow-down-bold" title="COOLING DOWN phase"/> }
-                                                        </div>
+                                                        {
+                                                            serviceInfo.phase != "NOT_RELEASED" &&
+                                                            <div className={"phase phase_" + serviceInfo.phase} title={"Base flag price"}>
+                                                                { serviceInfo.flag_base_amount?.toFixed(2) }
+                                                                { serviceInfo.phase === "HEATING" && serviceInfo.flag_base_amount !== maxFlagPrice && <span className="mdi mdi-arrow-up-bold" title="HEATING phase"/> }
+                                                                { serviceInfo.phase === "COOLING_DOWN" && <span className="mdi mdi-arrow-down-bold" title="COOLING DOWN phase"/> }
+                                                            </div>
+                                                        }
                                                     </React.Fragment>
                                                 }
                                             </div>

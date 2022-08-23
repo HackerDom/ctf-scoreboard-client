@@ -283,6 +283,14 @@ body {
 	background-color: #6f6f6f;
 }
 
+.team_info .tags .tag.tag_ONSITE {
+	background-color: #31317b;
+}
+
+.team_info .tags .tag.tag_NPC {
+	background-color: #6f6f6f;
+}
+
 .team_service {
 	width: 160px;
 	height: 100%;

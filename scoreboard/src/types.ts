@@ -116,6 +116,7 @@ export interface HistoricalServiceState {
 export interface ServiceIdAndName {
     id: string;
     name: string;
+    phase: string;
 }
 
 export type AllRoundsSla = { [teamId: string]: { [serviceId: string]: boolean[] } } // boolean = isUp

@@ -43,6 +43,13 @@ class Serviceblock extends Component<ServiceblockProps> {
         const sla_periods = model.getSlaPeriods(team.team_id.toString(), service.id.toString());
         const roundsCount = model.roundsCount;
         const maxSla = Math.ceil((service.sla * round + 100 * (roundsCount - round)) / roundsCount);
+        let serviceReleased = true;
+        model.services.forEach((s) => {
+            if (s.id == service.id.toString()) {
+                serviceReleased = model.services[service.id - 1].phase != "NOT_RELEASED";
+            }
+        })
+
         return (
             <div key={service.id} title={service.stdout} className="team_border team_service">
                 <div className="fp">{addSpacesToNumber(Number(service.fp.toFixed(2)))}</div>
@@ -53,7 +60,7 @@ class Serviceblock extends Component<ServiceblockProps> {
                 </div>
                 <Plusminusline plus={service.flags} minus={service.sflags} maxsum={max_flags_sum}
                                className="flags_line"/>
-                <div className="sla">
+                {serviceReleased && <div className="sla">
                     <div className={"slapercent " + status2Class[service.status]} title="SLA">
                         {Math.round(service.sla)}{Math.round(service.sla) < 100 ? "%" : ""}{service.status === 101
                         ? <span className="mdi mdi-arrow-up-bold"/>
@@ -68,6 +75,7 @@ class Serviceblock extends Component<ServiceblockProps> {
                     </div>
                     <div className="maxSla">max {maxSla}%</div>
                 </div>
+                }
             </div>
         )
     }

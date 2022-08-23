@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import Scoreboard from './scoreboard';
-
-ReactDOM.render(<Scoreboard/>, document.getElementById('root'));
+var ReactDOM = require('react-dom/client');
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+root.render(<Scoreboard/>);

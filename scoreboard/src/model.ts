@@ -138,6 +138,7 @@ export class GameModel {
                 services.push({
                     id: fieldName,
                     name: name,
+                    phase: "",
                 });
             }
         }
