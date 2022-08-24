@@ -27,6 +27,7 @@ class Scoreboard extends Component<ScoreboardProps> {
     additionalStyle: string;
     servicesFrom: number;
     servicesTo: number;
+    logo: string;
 
     model: GameModel | null;
     nextTeamToOpen: number;
@@ -46,6 +47,7 @@ class Scoreboard extends Component<ScoreboardProps> {
         this.autoScrollPeriod = parseInt(getParameterByName("autoScroll") ?? '0', 10) * 1000; // seconds
         this.forSave = getParameterByName("forSave") !== null;
         this.additionalStyle = getParameterByName("style") ?? '';
+        this.logo = getParameterByName("logo") ?? '';
 
         // Percentiles. I.e. ?servicesFrom=0&servicesTo=50
         this.servicesFrom = parseInt(getParameterByName("servicesFrom") ?? '', 10);
@@ -247,13 +249,16 @@ class Scoreboard extends Component<ScoreboardProps> {
                             <Progress width={this.width} start={this.model.info.start} end={this.model.info.end}
                                       compactScoreboardWidth={this.compactScoreboardWidth}/>
                             <div id="header" style={{width: this.width + "px"}}>
-                                <div id="attacks-header">
+                                {!this.logo && <div id="attacks-header">
                                     <AttacksPlot color={"white"} attacks={this.model.getDataForAttacksGraph()}
                                                  roundsCount={_this.model!.roundsCount}/>
                                     <div className="service-name">attacks</div>
                                     <div className="attacks">{attacks}</div>
                                     <div className="min">/round</div>
-                                </div>
+                                </div>}
+                                {this.logo && <div className={"contest-logo"}>
+                                    <img src={this.logo}/>
+                                </div>}
                                 {this.model.services.slice(0, this.model.servicesCount).map((service, i) => {
                                         if (!this.model!.active_services.includes(parseInt(service.id, 10)))
                                             return null;

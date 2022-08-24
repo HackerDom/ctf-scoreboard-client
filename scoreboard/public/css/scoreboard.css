@@ -130,6 +130,20 @@ body {
 	box-sizing: border-box;
 }
 
+.contest-logo {
+	width: 480px;
+	float: left;
+	height: 150px;
+	padding-top: 12px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+}
+.contest-logo > img {
+	max-height: 80px;
+	max-width: 450px;
+}
+
 .service-name {
 	text-transform: uppercase;
 	font-size: 14px;
