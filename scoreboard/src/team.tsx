@@ -85,7 +85,7 @@ class Team extends Component<TeamProps, TeamComponentState> {
                         <div className="team_summary">
                             <div className="place"><span>{team.n}</span><span className="suffix">&thinsp;{suffix}</span>
                             </div>
-                            <div className="team_logo team_border"><img className="img" src={logo}/></div>
+                            <div className="team_logo team_border"><img className="img" src={logo} alt="Team logo"/></div>
                             <div className="team_info team_border">
                                 <div className="team_name" title={team.name}>{team.name}</div>
                                 <div className="tags">

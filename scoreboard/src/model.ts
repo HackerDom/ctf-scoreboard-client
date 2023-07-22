@@ -184,13 +184,13 @@ export class GameModel {
 
     getSlaPeriodsForSomeServiceOfSomeTeam() {
         let team_ids = Object.keys(this.allRoundsSla);
-        if (team_ids.length == 0)
+        if (team_ids.length === 0)
             return [];
 
         let team_id = team_ids[0];
 
         let service_ids = Object.keys(this.allRoundsSla[team_id]);
-        if (service_ids.length == 0)
+        if (service_ids.length === 0)
             return [];
 
         let service_id = service_ids[0];

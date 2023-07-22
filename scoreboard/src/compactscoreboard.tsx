@@ -29,7 +29,7 @@ class CompactScoreboard extends Component<CompactScoreboardProps> {
                                         lineHeight: place_size + "px"
                                     }}>{i + 1}</div>
                                 </td>
-                                <td><img height={img_height} width={img_height} src={model.getLogo(team.team_id)}/></td>
+                                <td><img height={img_height} width={img_height} src={model.getLogo(team.team_id)} alt="Team logo"/></td>
                                 <td>
                                     <div className="compactTeamName" style={{"width": width - 230}}>{team.name}</div>
                                 </td>

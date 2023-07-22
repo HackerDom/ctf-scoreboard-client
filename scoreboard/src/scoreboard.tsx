@@ -257,7 +257,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                     <div className="min">/round</div>
                                 </div>}
                                 {this.logo && <div className={"contest-logo"}>
-                                    <img src={this.logo}/>
+                                    <img src={this.logo} alt="Contest logo"/>
                                 </div>}
                                 {this.model.services.slice(0, this.model.servicesCount).map((service, i) => {
                                         if (!this.model!.active_services.includes(parseInt(service.id, 10)))
@@ -314,7 +314,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                     serviceInfo.phase &&
                                                     <React.Fragment>
                                                         {
-                                                            serviceInfo.phase !== "DYING" && serviceInfo.phase !== "REMOVED" && serviceInfo.phase != "NOT_RELEASED" &&
+                                                            serviceInfo.phase !== "DYING" && serviceInfo.phase !== "REMOVED" && serviceInfo.phase !== "NOT_RELEASED" &&
                                                             <Timer seconds={phaseDuration!}
                                                                    direction={isGameActive ? "forward" : "none"}
                                                                    title={"Time from the beginning of the " + servicePhase + " phase"}
@@ -328,7 +328,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                             />
                                                         }
                                                         {
-                                                            serviceInfo.phase != "NOT_RELEASED" &&
+                                                            serviceInfo.phase !== "NOT_RELEASED" &&
                                                             <div className={"phase phase_" + serviceInfo.phase} title={"Base flag price"}>
                                                                 { serviceInfo.flag_base_amount?.toFixed(2) }
                                                                 { serviceInfo.phase === "HEATING" && serviceInfo.flag_base_amount !== maxFlagPrice && <span className="mdi mdi-arrow-up-bold" title="HEATING phase"/> }
