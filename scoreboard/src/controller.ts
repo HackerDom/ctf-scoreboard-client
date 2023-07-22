@@ -35,7 +35,7 @@ export default class Controller extends EventEmitter {
                 }
             }).then((allScoreboards: History) => {
             this.model!.setScoreboards(allScoreboards.map((s) => s));
-            this.model!.getSlaPeriods("1", "1");
+            this.model!.getSlaPeriodsForSomeServiceOfSomeTeam()
             this.emit('history');
         });
     }
@@ -77,7 +77,7 @@ export default class Controller extends EventEmitter {
 
     processState(state: StateEventData) {
         this.model!.setScoreboard(state);
-        this.model!.getSlaPeriods("1", "1");
+        this.model!.getSlaPeriodsForSomeServiceOfSomeTeam()
         this.emit('updateScoreboard');
     }
 }

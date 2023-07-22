@@ -15,9 +15,9 @@ const proxy = require('http-proxy-middleware');
 */
 
 module.exports = function (app) {
-    app.use(proxy('/logo.png', {target: 'http://10.10.10.10:8080/', ws: true, changeOrigin: true}));
-    app.use(proxy('/api/events', {target: 'http://10.10.10.10:8080/', ws: true, changeOrigin: true}));
-    app.use(proxy('/api', {target: 'http://10.10.10.10:8080/', changeOrigin: true}));
-    app.use(proxy('/history', {target: 'http://10.10.10.10:8080/', changeOrigin: true}));
-    app.use(proxy('/data', {target: 'http://10.10.10.10:8080/', changeOrigin: true}));
+    app.use(proxy('/logo.png', {target: 'https://training.ctf.hitb.org/', ws: true, changeOrigin: true}));
+    app.use(proxy('/api/events', {target: 'https://training.ctf.hitb.org/', ws: true, changeOrigin: true}));
+    app.use(proxy('/api', {target: 'https://training.ctf.hitb.org/', changeOrigin: true}));
+    app.use(proxy('/history', {target: 'https://training.ctf.hitb.org/', changeOrigin: true}));
+    app.use(proxy('/data', {target: 'https://training.ctf.hitb.org/', changeOrigin: true}));
 };

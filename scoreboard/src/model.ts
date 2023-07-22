@@ -85,14 +85,14 @@ export class GameModel {
             this.roundsCount = 1280; // TODO: set actual rounds count
         this.roundsPerGraphColumn = 20;
         this.roundsPerGraphBorder = 60;
-        if (this.roundsCount > 600) {
+
+        let _roundsCount = this.roundsCount;
+        while (_roundsCount > 600) {
             this.roundsPerGraphColumn *= 2;
             this.roundsPerGraphBorder *= 2;
+            _roundsCount /= 2;
         }
-        if (this.roundsCount > 1200) {
-            this.roundsPerGraphColumn *= 2;
-            this.roundsPerGraphBorder *= 2;
-        }
+
         this.selectedTeam = null;
         this.slalineWidth = 80;
         this.slaPeriodLength = Math.ceil(this.roundsCount / this.slalineWidth);
@@ -180,6 +180,22 @@ export class GameModel {
             }
         }
         return this.allRoundsSla[team_id][service_id];
+    }
+
+    getSlaPeriodsForSomeServiceOfSomeTeam() {
+        let team_ids = Object.keys(this.allRoundsSla);
+        if (team_ids.length == 0)
+            return [];
+
+        let team_id = team_ids[0];
+
+        let service_ids = Object.keys(this.allRoundsSla[team_id]);
+        if (service_ids.length == 0)
+            return [];
+
+        let service_id = service_ids[0];
+
+        return this.getSlaPeriods(team_id, service_id);
     }
 
     fillAllRoundsSlaForScoreboard(scoreboard: Scoreboard | HistoricalScoreboard) {
