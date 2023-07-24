@@ -101,6 +101,13 @@ export class GameModel {
         this.service_infos = {}
     }
 
+    public updateInfo(info: Info) {
+        this.info = info;
+        this.teams = info.teams;
+        this.images = GameModel.preloadLogos(this.teams);
+        this.allRoundsSla = GameModel.initAllRoundsSla(info, this.services);
+    }
+
     private static preloadLogos(teams: { [teamId: string]: TeamInfo }): HTMLImageElement[] {
         const images: HTMLImageElement[] = [];
         let team_id = 1;
@@ -277,8 +284,9 @@ export class GameModel {
             for (let s = 0; s < this.servicesCount; s++)
                 this.serviceIndex2attacksInRound[s] = currentFlags[s] - previousFlags[s];
             for (let t = 0; t < this.scoreboard.scoreboard.length; t++) {
+                let previousScore = this.previousScoreboard.scoreboard[t]?.score ?? 0;
                 this.scoreboard.scoreboard[t].scoreDelta = GameModel.GetScore(this.scoreboard.scoreboard[t].score)
-                    - GameModel.GetScore(this.previousScoreboard.scoreboard[t].score);
+                    - GameModel.GetScore(previousScore);
             }
         }
     }
