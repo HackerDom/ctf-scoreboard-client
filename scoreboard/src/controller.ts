@@ -80,8 +80,6 @@ export default class Controller extends EventEmitter {
     }
 
     processState(state: StateEventData) {
-        console.log(state.scoreboard.length);
-        console.log(this.model!.info.teams);
         if (state.scoreboard.length !== Object.keys(this.model!.info.teams).length) {
             // Some team has been added? Let's update our "info"
             Controller.getApiInfo().then(response => {
