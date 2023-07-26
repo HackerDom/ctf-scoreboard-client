@@ -301,7 +301,9 @@ body {
 	background-color: #31317b;
 }
 
-.team_info .tags .tag.tag_NPC {
+.team_info .tags .tag.tag_NPC,
+.team_info .tags .tag.tag_HOSTED
+{
 	background-color: #6f6f6f;
 }
 
