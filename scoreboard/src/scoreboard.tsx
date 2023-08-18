@@ -28,6 +28,7 @@ class Scoreboard extends Component<ScoreboardProps> {
     servicesFrom: number;
     servicesTo: number;
     logo: string;
+    tagFilter: string;
 
     model: GameModel | null;
     nextTeamToOpen: number;
@@ -48,6 +49,7 @@ class Scoreboard extends Component<ScoreboardProps> {
         this.forSave = getParameterByName("forSave") !== null;
         this.additionalStyle = getParameterByName("style") ?? '';
         this.logo = getParameterByName("logo") ?? '';
+        this.tagFilter = getParameterByName("tagFilter") ?? '';
 
         // Percentiles. I.e. ?servicesFrom=0&servicesTo=50
         this.servicesFrom = parseInt(getParameterByName("servicesFrom") ?? '', 10);
@@ -191,7 +193,13 @@ class Scoreboard extends Component<ScoreboardProps> {
     }
 
     getTeamRows() {
-        return this.model!.getScoreboard().map((t, i) =>
+        const isTeamVisible = (team_id: number) => {
+            if (this.tagFilter === '')
+                return true;
+            return this.model!.getTags(team_id).includes(this.tagFilter);
+        }
+
+        return this.model!.getScoreboard().filter(t => isTeamVisible(t.team_id)).map((t, i) =>
             <Team ref={instance => {
                 this.teamRefs[i] = instance;
             }} key={t.team_id} team={t} model={this.model!} handleClick={this.onTeamClick}
