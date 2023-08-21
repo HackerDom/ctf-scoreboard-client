@@ -161,8 +161,8 @@ class Scoreboard extends Component<ScoreboardProps> {
             if (window.outerWidth < 150)
                 return;
             if (container !== null && !_this.isIE) {
-                if (window.outerWidth - _this.compactScoreboardWidth < width) {
-                    _this.zoom = (window.outerWidth - 40 - _this.compactScoreboardWidth) / width;
+                if (window.innerWidth - _this.compactScoreboardWidth < width) {
+                    _this.zoom = (window.innerWidth - 20 - _this.compactScoreboardWidth) / width;
                     if (_this.isFirefox)
                         container.setAttribute("style", "transform:scale(" + _this.zoom + ");");
                     else

@@ -153,30 +153,30 @@ export class GameModel {
         return services;
     }
 
-    getTags(team_id: number): string[] {
-        return this.teams[team_id].tags ?? [];
+    getTags(teamId: number): string[] {
+        return this.teams[teamId].tags ?? [];
     }
 
-    getHost(team_id: number) {
-        return this.teams[team_id].network;
+    getHost(teamId: number) {
+        return this.teams[teamId].network;
     }
 
-    getLogo(team_id: number) {
-        return this.teams[team_id].logo;
+    getLogo(teamId: number) {
+        return this.teams[teamId].logo;
     }
 
     getRound() {
         return this.allScoreboards.length === 0 ? 0 : this.allScoreboards[this.allScoreboards.length - 1].round;
     }
 
-    getSlaPeriods(team_id: string, service_id: string) {
+    getSlaPeriods(teamId: string, serviceId: string) {
         if (this.allScoreboards.length === 0 || this.allScoreboards.length < this.allScoreboards[this.allScoreboards.length - 1].round) {
             return [];
         }
-        if (this.allRoundsSla[team_id][service_id].length === this.allScoreboards.length) {
-            return this.allRoundsSla[team_id][service_id];
+        if (this.allRoundsSla[teamId][serviceId].length === this.allScoreboards.length) {
+            return this.allRoundsSla[teamId][serviceId];
         }
-        if (this.allRoundsSla[team_id][service_id].length === this.allScoreboards.length - 1) {
+        if (this.allRoundsSla[teamId][serviceId].length === this.allScoreboards.length - 1) {
             const scoreboard = this.allScoreboards[this.allScoreboards.length - 1].scoreboard;
             this.fillAllRoundsSlaForScoreboard(scoreboard);
         } else {
@@ -186,33 +186,34 @@ export class GameModel {
                 this.fillAllRoundsSlaForScoreboard(scoreboard);
             }
         }
-        return this.allRoundsSla[team_id][service_id];
+        return this.allRoundsSla[teamId][serviceId];
     }
 
     getSlaPeriodsForSomeServiceOfSomeTeam() {
-        let team_ids = Object.keys(this.allRoundsSla);
-        if (team_ids.length === 0)
+        let teamIds = Object.keys(this.allRoundsSla);
+        if (teamIds.length === 0)
             return [];
 
-        let team_id = team_ids[0];
+        let teamId = teamIds[0];
 
-        let service_ids = Object.keys(this.allRoundsSla[team_id]);
-        if (service_ids.length === 0)
+        let serviceIds = Object.keys(this.allRoundsSla[teamId]);
+        if (serviceIds.length === 0)
             return [];
 
-        let service_id = service_ids[0];
+        let serviceId = serviceIds[0];
 
-        return this.getSlaPeriods(team_id, service_id);
+        return this.getSlaPeriods(teamId, serviceId);
     }
 
     fillAllRoundsSlaForScoreboard(scoreboard: Scoreboard | HistoricalScoreboard) {
         for (let t = 0; t < scoreboard.length; t++) {
             const team = scoreboard[t];
-            const team_id = GameModel.GetTeamId(team);
+            const teamId = GameModel.GetTeamId(team);
             for (let s = 0; s < team.services.length; s++) {
                 const service = team.services[s];
+                const serviceId = parseInt(this.services[s].id, 10);
                 const isUp = service.status === 101;
-                this.allRoundsSla[team_id][s + 1].push(isUp);
+                this.allRoundsSla[teamId][serviceId].push(isUp);
             }
         }
     }

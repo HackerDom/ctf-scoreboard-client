@@ -44,9 +44,9 @@ class Serviceblock extends Component<ServiceblockProps> {
         const roundsCount = model.roundsCount;
         const maxSla = Math.ceil((service.sla * round + 100 * (roundsCount - round)) / roundsCount);
         let serviceReleased = true;
-        model.services.forEach((s) => {
+        model.services.forEach((s, i) => {
             if (s.id === service.id.toString()) {
-                serviceReleased = model.services[service.id - 1].phase !== "NOT_RELEASED";
+                serviceReleased = model.services[i].phase !== "NOT_RELEASED";
             }
         })
 
