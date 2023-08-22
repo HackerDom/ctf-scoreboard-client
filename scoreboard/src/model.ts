@@ -8,7 +8,7 @@ import {
     ServiceIdAndName,
     ServicesFlagsForGraphs,
     StateEventData,
-    TeamInfo, TeamState
+    TeamInfo, TeamState, isServiceAlmostDead
 } from "./types";
 
 export class GameModel {
@@ -56,9 +56,9 @@ export class GameModel {
         this.colors = [
             "#FF887B",
             "#E1BB5A",
-            // "#E9993C",
+            "#E9993C",
             "#96C840",
-            // "#46CD68",
+            "#46CD68",
             "#4FD8C3",
             "#51ADFF",
             "#618AFF",
@@ -67,7 +67,7 @@ export class GameModel {
             "#DE6388",
             "#AA8164"
         ];
-        this.fillClasses = ["c1", "c2", /*"c3",*/ "c4", /*"c5",*/ "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20"];
+        this.fillClasses = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20"];
         if (this.servicesCount < 7) {
             this.colors.shift();
             this.fillClasses.shift();
@@ -99,6 +99,18 @@ export class GameModel {
         this.slalineWidth = Math.ceil(this.roundsCount / this.slaPeriodLength);
         this.active_services = this.services.map((_service, index) => index);
         this.service_infos = {}
+    }
+
+    public almostDeadServices() {
+        let result = this.services.filter(service => {
+            let serviceId = parseInt(service.id, 10);
+            let serviceInfo = this.service_infos[serviceId];
+            return isServiceAlmostDead(serviceInfo);
+        });
+        if (result.length <= 1) {
+            return [];
+        }
+        return result;
     }
 
     public updateInfo(info: Info) {
@@ -231,7 +243,7 @@ export class GameModel {
             if (!this.scoreboard.services.hasOwnProperty(service_id))
                 continue;
             let service = this.scoreboard.services[service_id];
-            if (service.active || showAll)
+            if ((service.active && !isServiceAlmostDead(service)) || showAll)
                 active_services.push(parseInt(service_id));
             this.service_infos[parseInt(service_id)] = service;
         }

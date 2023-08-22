@@ -6,7 +6,7 @@ import Flagsgraph from './fpplot';
 import Fbarchart from './fbarchart';
 import Plotsprogress from './plotsprogress';
 import Plusminusline from './plusminusline';
-import {TeamState} from "./types";
+import { TeamState, ServiceState } from './types';
 import {GameModel} from "./model";
 
 const plotsLeftMargin = 154;
@@ -24,6 +24,10 @@ interface TeamProps {
 interface TeamComponentState {
     isSelected: boolean;
     plotIsVisible: boolean;
+}
+
+function arraySum(array: number[]) {
+    return array.reduce((pv, cv) => pv + cv, 0);
 }
 
 class Team extends Component<TeamProps, TeamComponentState> {
@@ -71,13 +75,24 @@ class Team extends Component<TeamProps, TeamComponentState> {
         const tags = this.props.model.getTags(team.team_id);
         const logo = this.props.model.getLogo(team.team_id);
         const max_score = this.props.model.max_score;
-        const width = this.props.model.team_width + this.props.model.one_service_width * this.props.servicesCount;
+        let almostDeadServices = this.props.model.almostDeadServices();
+        const width = this.props.model.team_width + this.props.model.one_service_width * (this.props.servicesCount + (almostDeadServices.length ? 1 : 0));
         const graphData = this.state.plotIsVisible ? this.props.model.getDataForGraphs(team.team_id) : null;
         const round = this.props.model.getRound();
         const meanSLA = team.services.map((s) => s.sla).reduce((p, c) => p + c) / this.props.model.servicesCount;
         const flags = team.services.map((s) => s.flags).reduce((p, c) => p + c);
         const sflags = team.services.map((s) => s.sflags).reduce((p, c) => p + c);
+        // TODO: use arraySum↑?
         let serviceIndex = 0;
+
+        let almostDeadServiceIds = almostDeadServices.map(s => parseInt(s.id, 10))
+        let almostDeadServiceInfos = team.services.filter(s => almostDeadServiceIds.includes(s.id))
+        let uberDeadService = {
+            flags: arraySum(almostDeadServiceInfos.map(s => s.flags)),
+            fp: arraySum(almostDeadServiceInfos.map(s => s.fp)),
+            sflags: arraySum(almostDeadServiceInfos.map(s => s.sflags)),
+            id: -1,
+        } as ServiceState;
         return (
             <div>
                 <div className={"team " + (this.state.isSelected ? "team_selected" : "")} onClick={this.handleClick}>
@@ -107,6 +122,10 @@ class Team extends Component<TeamProps, TeamComponentState> {
                                 <Numberline color="white" percent={GameModel.GetScore(team.score) / max_score * 100}
                                             className="team_score_line"/>
                             </div>
+                            {almostDeadServices.length > 0 && 
+                                <ServiceBlock key={"t" + team.team_id + "s-old"} service={uberDeadService}
+                                    team={team} model={this.props.model} color="white" round={round} aggregate={true}/>
+                            }
                             {team.services.map((service, i) => {
                                 if (i >= this.props.model.servicesCount)
                                     return null;

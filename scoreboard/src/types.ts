@@ -76,7 +76,11 @@ export interface IsServiceActive {
     disable_interval: number | null;
     flag_base_amount: number | null;
     phase: string | null;
-    phase_duration: number | null
+    phase_duration: number | null;
+}
+
+export function isServiceAlmostDead(service: IsServiceActive): boolean {
+    return service.phase === "DYING" && service.phase_duration! >= 8 * 60 * 60;
 }
 
 export interface AttackEventData {

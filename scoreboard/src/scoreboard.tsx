@@ -93,7 +93,8 @@ class Scoreboard extends Component<ScoreboardProps> {
                     services_count_part++;
             }
             this.services_count_part = services_count_part;
-            this.width = this.model!.team_width + this.model!.one_service_width * services_count_part;
+            
+            this.width = this.model!.team_width + this.model!.one_service_width * (services_count_part + (this.model!.almostDeadServices().length ? 1 : 0));
             this.forceUpdate();
             _this.initResize();
             initialized = true;
@@ -247,6 +248,16 @@ class Scoreboard extends Component<ScoreboardProps> {
                     : (container.offsetWidth / this.zoom) + "px"
                 : "auto";
         let serviceIndex = 0;
+        let almostDeadServices = this.model!.almostDeadServices();
+        let almostDeadServicesDescriptions = [] as string[];
+        if (almostDeadServices) {
+            almostDeadServicesDescriptions = almostDeadServices.slice(0, 3).map(s => s.name);
+            for (var i = 0; i + 1 < almostDeadServicesDescriptions.length; i++)  {
+                almostDeadServicesDescriptions[i] += " +"
+            }
+            if (almostDeadServices.length > 3)
+                almostDeadServicesDescriptions[almostDeadServicesDescriptions.length - 1] += " + ..."
+        }
         return (
             <div className={this.additionalStyle === null ? "" : this.additionalStyle}>
                 {this.compactScoreboardWidth === 0 ? null :
@@ -267,6 +278,15 @@ class Scoreboard extends Component<ScoreboardProps> {
                                 {this.logo && <div className={"contest-logo"}>
                                     <img src={this.logo} alt="Contest logo"/>
                                 </div>}
+                                {almostDeadServices.length > 0 && 
+                                    <div key="almost-dead" className="service-header almost-dead">
+                                        <div className="attacksplot"></div>
+                                        <div className="service-name" style={{color: "white"}}>Old services</div>
+                                        <div className="attacks" style={{color: "#ccc", paddingTop: "10px"}}>
+                                            {almostDeadServicesDescriptions.map(s => <>{s}<br/></>)}
+                                        </div>
+                                    </div>                                
+                                }
                                 {this.model.services.slice(0, this.model.servicesCount).map((service, i) => {
                                         if (!this.model!.active_services.includes(parseInt(service.id, 10)))
                                             return null;
@@ -330,10 +350,13 @@ class Scoreboard extends Component<ScoreboardProps> {
                                                         }
                                                         {
                                                             serviceInfo.phase === "DYING" &&
-                                                            <Timer seconds={serviceDisableInterval ?? 0}
-                                                                   direction={isGameActive ? "backward" : "none"}
-                                                                   title="This service will disappear soon"
-                                                            />
+                                                            // Hide the timer for DYING services because we don't remove services this year
+                                                            <div className="timer">&nbsp;</div> 
+                                                            // <Timer seconds={serviceDisableInterval ?? 0}
+                                                            //        direction={isGameActive ? "backward" : "none"}
+                                                            //        title="This service will disappear soon"
+                                                            // />
+                                                            
                                                         }
                                                         {
                                                             serviceInfo.phase !== "NOT_RELEASED" &&

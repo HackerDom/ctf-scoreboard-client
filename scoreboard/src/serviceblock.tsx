@@ -29,6 +29,7 @@ interface ServiceblockProps {
     model: GameModel;
     team: TeamState;
     service: ServiceState;
+    aggregate?: boolean;
 }
 
 class Serviceblock extends Component<ServiceblockProps> {
@@ -40,7 +41,7 @@ class Serviceblock extends Component<ServiceblockProps> {
         const model = this.props.model;
         const max_service_score = model.max_service_score;
         const max_flags_sum = model.max_flags_sum;
-        const sla_periods = model.getSlaPeriods(team.team_id.toString(), service.id.toString());
+        const sla_periods = this.props.aggregate ? [] : model.getSlaPeriods(team.team_id.toString(), service.id.toString());
         const roundsCount = model.roundsCount;
         const maxSla = Math.ceil((service.sla * round + 100 * (roundsCount - round)) / roundsCount);
         let serviceReleased = true;
@@ -60,7 +61,7 @@ class Serviceblock extends Component<ServiceblockProps> {
                 </div>
                 <Plusminusline plus={service.flags} minus={service.sflags} maxsum={max_flags_sum}
                                className="flags_line"/>
-                {serviceReleased && <div className="sla">
+                {serviceReleased && !this.props.aggregate && <div className="sla">
                     <div className={"slapercent " + status2Class[service.status]} title="SLA">
                         {Math.round(service.sla)}{Math.round(service.sla) < 100 ? "%" : ""}{service.status === 101
                         ? <span className="mdi mdi-arrow-up-bold"/>
