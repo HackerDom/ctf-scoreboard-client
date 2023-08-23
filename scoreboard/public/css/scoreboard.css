@@ -298,7 +298,11 @@ body {
 }
 
 .team_info .tags .tag.tag_ONSITE {
-	background-color: #31317b;
+	background-color: #256725;
+}
+
+.team_info .tags .tag.tag_TOP {
+	background-color: #6f6f6f;
 }
 
 .team_info .tags .tag.tag_NPC,

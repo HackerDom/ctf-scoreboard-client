@@ -47,7 +47,7 @@ class Serviceblock extends Component<ServiceblockProps> {
         let serviceReleased = true;
         model.services.forEach((s, i) => {
             if (s.id === service.id.toString()) {
-                serviceReleased = model.services[i].phase !== "NOT_RELEASED";
+                serviceReleased = model.services[i].phase !== "NOT_RELEASED" && s.name !== "training";
             }
         })
 
