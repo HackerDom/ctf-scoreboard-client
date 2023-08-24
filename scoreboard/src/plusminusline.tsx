@@ -13,8 +13,8 @@ class Plusminusline extends Component<PlusminuslineProps> {
         const minus = this.props.minus;
         const maxsum = this.props.maxsum;
         const className = (this.props.className === undefined) ? "" : " " + this.props.className;
-        const plusWidth = Math.max(plus > 0 ? 1 : 0, plus / maxsum * 99);
-        const minusWidth = Math.max(minus > 0 ? 1 : 0, minus / maxsum * 99);
+        const plusWidth = Math.max(plus > 0 ? 1 : 0, Math.min(100, plus / maxsum * 99));
+        const minusWidth = Math.max(minus > 0 ? 1 : 0, Math.min(100, minus / maxsum * 99));
         const margin = minus > 0 && plus > 0 ? 1 : 0;
         return (
             <div className={"plusminusline" + className}>

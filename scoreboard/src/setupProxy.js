@@ -1,6 +1,6 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-let target_host = 'http://10.10.10.10:8080/';
+let target_host = 'http://10.10.10.10/';
 
 module.exports = function (app) {
     app.use(createProxyMiddleware('/logo.png', {target: target_host, ws: true, changeOrigin: true}));

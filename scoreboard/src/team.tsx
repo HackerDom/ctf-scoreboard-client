@@ -19,6 +19,7 @@ interface TeamProps {
     servicesFrom: number;
     servicesTo: number;
     handleClick: (clickedTeamId: number, deselectCallback: () => void) => void;
+    showAll: boolean;
 }
 
 interface TeamComponentState {
@@ -93,6 +94,9 @@ class Team extends Component<TeamProps, TeamComponentState> {
             sflags: arraySum(almostDeadServiceInfos.map(s => s.sflags)),
             id: -1,
         } as ServiceState;
+        if (this.props.showAll) {
+            almostDeadServices = [];
+        }
         return (
             <div>
                 <div className={"team " + (this.state.isSelected ? "team_selected" : "")} onClick={this.handleClick}>

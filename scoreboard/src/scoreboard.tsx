@@ -205,6 +205,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                 this.teamRefs[i] = instance;
             }} key={t.team_id} team={t} model={this.model!} handleClick={this.onTeamClick}
                   servicesFrom={this.servicesFrom} servicesTo={this.servicesTo} servicesCount={this.services_count_part}
+                  showAll={this.model!.showAll}
             />
         );
     }
@@ -258,7 +259,6 @@ class Scoreboard extends Component<ScoreboardProps> {
             if (almostDeadServices.length > 3)
                 almostDeadServicesDescriptions[almostDeadServicesDescriptions.length - 1] += " + ..."
         }
-        console.log(almostDeadServices);
         return (
             <div className={this.additionalStyle === null ? "" : this.additionalStyle}>
                 {this.compactScoreboardWidth === 0 ? null :
@@ -279,7 +279,7 @@ class Scoreboard extends Component<ScoreboardProps> {
                                 {this.logo && <div className={"contest-logo"}>
                                     <img src={this.logo} alt="Contest logo"/>
                                 </div>}
-                                {almostDeadServices.length > 0 && 
+                                {almostDeadServices.length > 0 && !this.model.showAll &&
                                     <div key="almost-dead" className="service-header almost-dead">
                                         <div className="attacksplot"></div>
                                         <div className="service-name" style={{color: "white"}}>Old services</div>

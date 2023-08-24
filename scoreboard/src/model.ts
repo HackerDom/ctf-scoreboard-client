@@ -43,6 +43,8 @@ export class GameModel {
     selectedTeam: SelectedTeam | null;
     service_infos: { [id: number]: IsServiceActive };
 
+    showAll: boolean;
+
     constructor(info: Info) {
         this.scoreboard = null;
         this.allScoreboards = [];
@@ -99,6 +101,7 @@ export class GameModel {
         this.slalineWidth = Math.ceil(this.roundsCount / this.slaPeriodLength);
         this.active_services = this.services.map((_service, index) => index);
         this.service_infos = {}
+        this.showAll = getParameterByName("showAll") !== null;
     }
 
     public almostDeadServices() {
