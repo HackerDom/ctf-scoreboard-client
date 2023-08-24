@@ -311,6 +311,11 @@ body {
 	background-color: #6f6f6f;
 }
 
+.team_info .tags .tag.tag_DISQUAL {
+	background-color: rgb(135, 45, 45);
+}
+
+
 .team_service {
 	width: 160px;
 	height: 100%;

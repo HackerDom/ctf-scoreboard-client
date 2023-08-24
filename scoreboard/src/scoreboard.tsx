@@ -258,6 +258,7 @@ class Scoreboard extends Component<ScoreboardProps> {
             if (almostDeadServices.length > 3)
                 almostDeadServicesDescriptions[almostDeadServicesDescriptions.length - 1] += " + ..."
         }
+        console.log(almostDeadServices);
         return (
             <div className={this.additionalStyle === null ? "" : this.additionalStyle}>
                 {this.compactScoreboardWidth === 0 ? null :
@@ -288,11 +289,12 @@ class Scoreboard extends Component<ScoreboardProps> {
                                     </div>                                
                                 }
                                 {this.model.services.slice(0, this.model.servicesCount).map((service, i) => {
-                                        if (!this.model!.active_services.includes(parseInt(service.id, 10)))
+                                        if (!this.model!.active_services.includes(parseInt(service.id, 10))) {
                                             return null;
+                                        }
                                         let servicePercentile = serviceIndex * 100 / this.model!.active_services.length;
                                         serviceIndex++;
-                                        if (servicePercentile < this.servicesFrom || servicePercentile >= this.servicesTo)
+                                        if (servicePercentile < this.servicesFrom || servicePercentile >= this.servicesTo) 
                                             return null;
 
                                         let serviceId = parseInt(service.id, 10);

@@ -243,7 +243,7 @@ export class GameModel {
             if (!this.scoreboard.services.hasOwnProperty(service_id))
                 continue;
             let service = this.scoreboard.services[service_id];
-            if ((service.active && !isServiceAlmostDead(service)) || showAll)
+            if (service.active || showAll)
                 active_services.push(parseInt(service_id));
             this.service_infos[parseInt(service_id)] = service;
         }
@@ -276,6 +276,12 @@ export class GameModel {
                     }).reduce((p, c) => p + c);
                 }));
         this.setScoreboards([scoreboard]);
+
+        if (!showAll) {
+            let almostDeadServices = this.almostDeadServices().map(s => parseInt(s.id, 10));
+            this.active_services = this.active_services.filter(s => !almostDeadServices.includes(s));
+        }
+
     }
 
     getScoreboard(): TeamState[] {
