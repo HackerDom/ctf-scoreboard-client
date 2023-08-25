@@ -54,7 +54,7 @@ class Serviceblock extends Component<ServiceblockProps> {
         return (
             <div key={service.id} title={service.stdout} className="team_border team_service">
                 <div className="fp">{addSpacesToNumber(Number(service.fp.toFixed(2)))}</div>
-                <Numberline color={color} percent={service.fp / max_service_score * 100} className="service_fp_line"/>
+                <Numberline color={color} percent={Math.min(100, service.fp / max_service_score * 100)} className="service_fp_line"/>
                 <div className="flags">
                     <span className="mdi mdi-flag"> <span title={"Flags amount stolen by " + team.name}>{service.flags}</span>{service.sflags > 0 ?
                         <span> / <span className="sflags" title={"Flags amount stolen from " + team.name}>-{service.sflags}</span></span> : null}</span>
